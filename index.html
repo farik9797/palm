@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palm: новостройки Бухары на 3D-карте</title>
+<meta name="description" content="Интерактивная 3D-карта Бухары: объекты и городские ориентиры. Наведите на метку, чтобы увидеть сведения о доме.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Onest:wght@600&family=Golos+Text:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="container nav__in">
+    <a class="nav__mark" href="#top">Palm</a>
+    <form class="nav__search" role="search" id="search">
+      <label class="visually-hidden" for="q">Поиск по карте</label>
+      <input id="q" type="search" placeholder="Найти дом или ориентир" autocomplete="off">
+    </form>
+    <a class="btn btn--primary" href="#contact">Записаться на показ</a>
+  </div>
+</header>
+
+<main id="top">
+
+<section class="hero" aria-labelledby="h-hero">
+  <div class="hero__map" id="map" role="application" aria-label="3D-карта Бухары с метками объектов">
+    <noscript><p class="hero__nojs">Карта работает со включённым JavaScript. Список объектов есть ниже на странице.</p></noscript>
+  </div>
+  <div class="hero__scrim" aria-hidden="true"></div>
+  <div class="container hero__copy">
+    <h1 id="h-hero">Новостройки Бухары на живой карте</h1>
+    <p class="lead">Выберите метку, и откроется карточка дома.</p>
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="#index">Смотреть объекты</a>
+      <button class="btn" type="button" id="replay" hidden>Прорисовать заново</button>
+    </div>
+  </div>
+</section>
+
+<section class="index" id="index" aria-labelledby="h-index">
+  <div class="container">
+    <div class="index__head">
+      <h2 id="h-index">Всё, что отмечено на карте</h2>
+      <div class="seg" role="group" aria-label="Что показывать">
+        <button type="button" class="seg__b" data-filter="all" aria-pressed="true">Всё</button>
+        <button type="button" class="seg__b" data-filter="object" aria-pressed="false">Объекты</button>
+        <button type="button" class="seg__b" data-filter="landmark" aria-pressed="false">Ориентиры</button>
+      </div>
+    </div>
+
+    <!-- Источник данных для меток: одна строка = одна метка. Координаты — data-lng / data-lat. -->
+    <ul class="rows" id="rows">
+      <li class="row" data-pin data-kind="object" data-lng="64.4222" data-lat="39.7692">
+        <span class="row__kind">Объект</span>
+        <h3><button type="button" class="row__go">Демо-объект 1</button></h3>
+        <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+      </li>
+      <li class="row" data-pin data-kind="object" data-lng="64.4302" data-lat="39.7724">
+        <span class="row__kind">Объект</span>
+        <h3><button type="button" class="row__go">Демо-объект 2</button></h3>
+        <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+      </li>
+      <li class="row" data-pin data-kind="object" data-lng="64.4262" data-lat="39.7660">
+        <span class="row__kind">Объект</span>
+        <h3><button type="button" class="row__go">Демо-объект 3</button></h3>
+        <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+      </li>
+      <li class="row" data-pin data-kind="object" data-lng="64.4212" data-lat="39.7832">
+        <span class="row__kind">Объект</span>
+        <h3><button type="button" class="row__go">Демо-объект 4</button></h3>
+        <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+      </li>
+
+      <li class="row" data-pin data-kind="landmark" data-lng="64.4108" data-lat="39.7778">
+        <span class="row__kind">Ориентир</span>
+        <h3><button type="button" class="row__go">Крепость Арк</button></h3>
+        <dl><div><dt>Что это</dt><dd>цитадель, резиденция бухарских эмиров</dd></div></dl>
+      </li>
+      <li class="row" data-pin data-kind="landmark" data-lng="64.4150" data-lat="39.7759">
+        <span class="row__kind">Ориентир</span>
+        <h3><button type="button" class="row__go">Минарет Калян</button></h3>
+        <dl><div><dt>Построен</dt><dd class="num">1127 год</dd></div><div><dt>Что это</dt><dd>главный минарет города</dd></div></dl>
+      </li>
+      <li class="row" data-pin data-kind="landmark" data-lng="64.4159" data-lat="39.7757">
+        <span class="row__kind">Ориентир</span>
+        <h3><button type="button" class="row__go">Медресе Мири-Араб</button></h3>
+        <dl><div><dt>Построено</dt><dd class="num">1530-е годы</dd></div><div><dt>Что это</dt><dd>действующее медресе</dd></div></dl>
+      </li>
+      <li class="row" data-pin data-kind="landmark" data-lng="64.4165" data-lat="39.7745">
+        <span class="row__kind">Ориентир</span>
+        <h3><button type="button" class="row__go">Медресе Улугбека</button></h3>
+        <dl><div><dt>Построено</dt><dd class="num">1417 год</dd></div><div><dt>Что это</dt><dd>медресе эпохи Тимуридов</dd></div></dl>
+      </li>
+      <li class="row" data-pin data-kind="landmark" data-lng="64.4203" data-lat="39.7731">
+        <span class="row__kind">Ориентир</span>
+        <h3><button type="button" class="row__go">Ляби-Хауз</button></h3>
+        <dl><div><dt>Построен</dt><dd class="num">1620 год</dd></div><div><dt>Что это</dt><dd>площадь у водоёма</dd></div></dl>
+      </li>
+      <li class="row" data-pin data-kind="landmark" data-lng="64.4273" data-lat="39.7747">
+        <span class="row__kind">Ориентир</span>
+        <h3><button type="button" class="row__go">Чор-Минор</button></h3>
+        <dl><div><dt>Построен</dt><dd class="num">1807 год</dd></div><div><dt>Что это</dt><dd>медресе с четырьмя башнями</dd></div></dl>
+      </li>
+      <li class="row" data-pin data-kind="landmark" data-lng="64.4004" data-lat="39.7770">
+        <span class="row__kind">Ориентир</span>
+        <h3><button type="button" class="row__go">Мавзолей Саманидов</button></h3>
+        <dl><div><dt>Построен</dt><dd>рубеж IX и X веков</dd></div><div><dt>Что это</dt><dd>усыпальница династии Саманидов</dd></div></dl>
+      </li>
+      <li class="row" data-pin data-kind="landmark" data-lng="64.4087" data-lat="39.7776">
+        <span class="row__kind">Ориентир</span>
+        <h3><button type="button" class="row__go">Мечеть Боло-Хауз</button></h3>
+        <dl><div><dt>Построена</dt><dd class="num">1712 год</dd></div><div><dt>Что это</dt><dd>мечеть с расписным айваном</dd></div></dl>
+      </li>
+    </ul>
+    <p class="rows__empty" id="rows-empty" hidden>Ничего не нашлось. Измените запрос.</p>
+  </div>
+</section>
+
+<section class="band" id="contact" aria-labelledby="h-contact">
+  <div class="container band__in">
+    <h2 id="h-contact">Покажем любой дом на месте</h2>
+    <dl class="band__facts">
+      <div><dt>Телефон отдела продаж</dt><dd>уточняется</dd></div>
+      <div><dt>Офис в Бухаре</dt><dd>уточняется</dd></div>
+    </dl>
+    <a class="btn" href="#top">Вернуться к карте</a>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="container foot__in">
+    <p class="foot__mark">Palm</p>
+    <ul class="foot__links">
+      <li><a href="#top">Карта</a></li>
+      <li><a href="#index">Объекты</a></li>
+      <li><a href="#contact">Показ</a></li>
+    </ul>
+    <p class="foot__note">Данные карты: участники <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, тайлы <a href="https://openfreemap.org">OpenFreeMap</a>.</p>
+  </div>
+</footer>
+
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
