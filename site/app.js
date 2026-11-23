@@ -112,8 +112,14 @@
     } else { ph.classList.add('card__photo--empty'); ph.textContent = 'Здесь будет фото объекта'; }
     el.append(ph, head);
     const body = document.createElement('div'); body.className = 'card__body';
-    const name = document.createElement('p'); name.className = 'card__name'; name.textContent = row.querySelector('h3').textContent;
+    const href = row.querySelector('a.row__go')?.getAttribute('href');
+    const name = document.createElement(href ? 'a' : 'p'); name.className = 'card__name'; name.textContent = row.querySelector('h3').textContent.trim();
     body.append(name, row.querySelector('dl').cloneNode(true));
+    if (href) {                                              // название и «Подробнее» ведут на страницу объекта
+      name.href = href;
+      const more = document.createElement('a'); more.className = 'card__more'; more.href = href; more.textContent = 'Подробнее';
+      body.append(more);
+    }
     el.append(body);
     return el;
   };
@@ -129,10 +135,10 @@
     inner.append(tag, mark); b.append(inner);
     new maplibregl.Marker({ element: b, anchor: 'bottom' }).setLngLat(lngLat).addTo(map);
     b.setAttribute('aria-label', name);   // MapLibre ставит своё «Map marker»
-    const pin = { row, b, lngLat, kind: row.dataset.kind, text: row.textContent.toLowerCase() };
+    const pin = { row, b, lngLat, kind: row.dataset.kind, text: (name + ' ' + row.querySelector('dl').textContent).toLowerCase() };
 
     b.addEventListener('mouseenter', () => open(pin));
-    b.addEventListener('mouseleave', () => { if (pinned !== pin) close(); });
+    b.addEventListener('mouseleave', () => { if (pinned !== pin) closeSoon(); });
     b.addEventListener('focus', () => open(pin));
     b.addEventListener('blur', () => { if (pinned !== pin) close(); });
     b.addEventListener('click', (e) => {
@@ -145,12 +151,16 @@
     });
     row.addEventListener('mouseenter', () => b.classList.add('is-hot'));
     row.addEventListener('mouseleave', () => b.classList.remove('is-hot'));
-    row.querySelector('.row__go').addEventListener('click', () => goTo(pin));
+    row.querySelector('.row__map')?.addEventListener('click', () => goTo(pin));
     if (row.dataset.photo) later0(() => { new Image().src = row.dataset.photo; });
     return pin;
   });
 
+  // карточка не закрывается сразу: курсор успевает перейти с метки на неё и нажать «Подробнее»
+  let closeTimer = 0;
+  const closeSoon = () => { clearTimeout(closeTimer); closeTimer = setTimeout(close, 220); };
   function open(pin) {
+    clearTimeout(closeTimer);
     pins.forEach((p) => { p.b.classList.toggle('is-open', p === pin); p.row.classList.toggle('is-hot', p === pin); });
     popup?.remove();
     // карточка открывается туда, где больше места: вверх от метки или вниз
@@ -158,6 +168,10 @@
     const below = above < CARD && under > above;
     popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, anchor: below ? 'top' : 'bottom', offset: below ? 12 : 34, maxWidth: 'none', className: 'pop' })
       .setLngLat(pin.lngLat).setDOMContent(card(pin.row)).addTo(map);
+    const el = popup.getElement();
+    el.addEventListener('mouseenter', () => clearTimeout(closeTimer));
+    el.addEventListener('mouseleave', () => { if (pinned !== pin) closeSoon(); });
+    el.addEventListener('click', (e) => e.stopPropagation());
   }
   function close() {
     pins.forEach((p) => { p.b.classList.remove('is-open'); p.row.classList.remove('is-hot'); });
@@ -333,6 +347,11 @@
     onScroll();
   }
 
-  map.on('load', () => (reduce ? finish() : play()));
+  map.on('load', () => {
+    // ссылка «Показать на карте» со страницы объекта: index.html#pin=<slug> — без интро, сразу к метке
+    const slug = (location.hash.match(/^#pin=(.+)$/) || [])[1];
+    const target = slug && pins.find((p) => p.row.dataset.slug === decodeURIComponent(slug));
+    if (target) { finish(); goTo(target); } else if (reduce) finish(); else play();
+  });
   mapEl.addEventListener('pointerdown', () => { if (state === 'playing') finish(); });   // клик по карте пропускает интро
 })();
