@@ -19,10 +19,19 @@
 </header>
 <main class="obj">
   <div class="container obj__in">
-    <div class="obj__photo" data-slot="photo"><img src="../img/samanid.jpg" alt="Мавзолей Саманидов"></div>
+    <div class="obj__media">
+      <div class="obj__photo" data-slot="photo" id="photo"><img src="../img/samanid.jpg" alt="Мавзолей Саманидов"></div>
+      <div class="thumbs">
+        <a href="../img/samanid.jpg" aria-current><img src="../img/samanid.jpg" alt="Мавзолей Саманидов, фото 1" loading="lazy"></a>
+        <a href="../img/samanid-2.jpg"><img src="../img/samanid-2.jpg" alt="Мавзолей Саманидов, фото 2" loading="lazy"></a>
+        <a href="../img/samanid-3.jpg"><img src="../img/samanid-3.jpg" alt="Мавзолей Саманидов, фото 3" loading="lazy"></a>
+        <a href="../img/samanid-4.jpg"><img src="../img/samanid-4.jpg" alt="Мавзолей Саманидов, фото 4" loading="lazy"></a>
+      </div>
+    </div>
     <div class="obj__info">
       <p class="obj__kind">Ориентир</p>
       <h1>Мавзолей Саманидов</h1>
+      <p class="obj__desc">Усыпальница династии Саманидов, построена на рубеже IX и X веков. Стены сложены из жжёного кирпича так, что кладка сама работает как узор. Мавзолей стоит в парке на западе старого города.</p>
       <dl class="facts">
         <div><dt>Построен</dt><dd>рубеж IX и X веков</dd></div>
         <div><dt>Что это</dt><dd>усыпальница династии Саманидов</dd></div>
@@ -32,9 +41,9 @@
         <a class="btn btn--primary" href="../#pin=samanid">Показать на карте</a>
         <a class="btn" href="../#index">Все объекты</a>
       </div>
-      <p class="obj__credit">Фото: Apfel51, Public domain, <a href="https://commons.wikimedia.org/wiki/File:UZ_Bukhara_Samanid-mausoleum.jpg">Wikimedia Commons</a></p>
     </div>
   </div>
 </main>
+<script src="../gallery.js"></script>
 </body>
 </html>
