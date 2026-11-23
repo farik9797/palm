@@ -22,7 +22,7 @@
   if (scrolly) { document.documentElement.classList.add('js-scroll'); measure(); }
   const touch = matchMedia('(pointer: coarse)').matches;
   const flat = () => ({ center: CENTER, zoom: 13.0, pitch: 0, bearing: 0, padding: pad() });
-  const tilted = () => ({ center: [64.4185, 39.7735], zoom: 14.5, pitch: 60, bearing: -24, padding: pad() });
+  const tilted = () => ({ center: [64.4185, 39.7735], zoom: 14.9, pitch: 62, bearing: -24, padding: pad() });
   const RINGS = 6;
 
   // токены CSS → rgba для MapLibre (oklch он не понимает)
@@ -37,12 +37,13 @@
   const C = {
     paper: tok('--color-land'), roadCase: tok('--color-road-case'), sheet: tok('--color-sheet'), ink: tok('--color-ink'), ink2: tok('--color-ink-2'),
     contour: tok('--color-contour'), water: tok('--color-water'), green: tok('--color-green-soft'),
-    building: tok('--color-building'), clear: tok('--color-ink', 0),
+    building: tok('--color-building'), buildingHi: tok('--color-building-hi'), clear: tok('--color-ink', 0),
   };
 
   const MAJOR = ['motorway', 'trunk', 'primary', 'secondary', 'tertiary'];
   const NAME = ['coalesce', ['get', 'name:ru'], ['get', 'name']];
   const HEIGHT = ['coalesce', ['get', 'render_height'], 5];
+  const LIFT = 3;   // в OSM по Бухаре этажность почти не указана (везде 5 м), поэтому высота утрирована ради объёма
   const w = (a, b, c) => ['interpolate', ['exponential', 1.6], ['zoom'], 12, a, 15, b, 18, c];
   const isMajor = ['in', ['get', 'class'], ['literal', MAJOR]];
   const w2 = (M, m) => w(...[0, 1, 2].map((i) => ['case', isMajor, M[i], m[i]]));
@@ -51,7 +52,7 @@
   const REVEAL = [
     ['green', 'fill-opacity', 0.9], ['water', 'fill-opacity', 1], ['waterway', 'line-opacity', 1],
     ['road-case', 'line-opacity', 1], ['road', 'line-opacity', 1],
-    ['buildings', 'fill-extrusion-opacity', 0.94], ['street-names', 'text-opacity', 1], ['place-names', 'text-opacity', 1],
+    ['buildings', 'fill-extrusion-opacity', 1], ['street-names', 'text-opacity', 1], ['place-names', 'text-opacity', 1],
   ];
 
   const map = new maplibregl.Map({
@@ -69,6 +70,7 @@
     attributionControl: { compact: true },
     style: {
       version: 8,
+      light: { anchor: 'map', position: [1.4, 215, 38], intensity: 0.55 },   // боковой свет: у домов видны грани
       glyphs: 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf',
       transition: { duration: 900, delay: 0 },
       sources: { omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet' } },
@@ -82,7 +84,7 @@
         { id: 'road', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['==', ['geometry-type'], 'LineString'], layout: { 'line-cap': 'round', 'line-join': 'round' },
           paint: { 'line-color': C.sheet, 'line-opacity': 0, 'line-width': w2([1.4, 5.4, 23], [0.4, 2.4, 13]) } },
         { id: 'buildings', type: 'fill-extrusion', source: 'omt', 'source-layer': 'building', minzoom: 13,
-          paint: { 'fill-extrusion-color': C.building, 'fill-extrusion-opacity': 0, 'fill-extrusion-height': 0, 'fill-extrusion-vertical-gradient': true } },
+          paint: { 'fill-extrusion-color': ['interpolate', ['linear'], HEIGHT, 4, C.building, 30, C.buildingHi], 'fill-extrusion-opacity': 0, 'fill-extrusion-height': 0, 'fill-extrusion-vertical-gradient': true } },
         { id: 'street-names', type: 'symbol', source: 'omt', 'source-layer': 'transportation_name', minzoom: 14.5,
           layout: { 'text-field': NAME, 'text-font': ['Noto Sans Regular'], 'symbol-placement': 'line', 'text-size': 12 },
           paint: { 'text-color': C.ink2, 'text-halo-color': C.paper, 'text-halo-width': 1.4, 'text-opacity': 0 } },
@@ -97,18 +99,20 @@
 
   /* ---------- метки и карточки ---------- */
   let popup = null;
+  const later0 = (fn) => setTimeout(fn, 4000);
   let pinned = null;
 
   const card = (row) => {
     const el = document.createElement('div'); el.className = 'card';
     const head = document.createElement('div'); head.className = 'card__head';
     head.textContent = row.querySelector('.row__kind').textContent;
-    el.append(head);
+    const ph = document.createElement('div'); ph.className = 'card__photo';
     if (row.dataset.photo) {
-      const ph = document.createElement('div'); ph.className = 'card__photo'; ph.dataset.slot = 'card';
-      const im = new Image(); im.src = row.dataset.photo; im.alt = row.querySelector('h3').textContent; im.onerror = () => ph.remove();
-      ph.append(im); el.append(ph);
-    }
+      ph.dataset.slot = 'card';
+      const im = new Image(); im.src = row.dataset.photo; im.alt = row.querySelector('h3').textContent.trim(); im.onerror = () => ph.remove();
+      ph.append(im);
+    } else { ph.classList.add('card__photo--empty'); ph.textContent = 'Здесь будет фото объекта'; }
+    el.append(ph, head);
     const body = document.createElement('div'); body.className = 'card__body';
     const name = document.createElement('p'); name.className = 'card__name'; name.textContent = row.querySelector('h3').textContent;
     body.append(name, row.querySelector('dl').cloneNode(true));
@@ -133,17 +137,27 @@
     b.addEventListener('mouseleave', () => { if (pinned !== pin) close(); });
     b.addEventListener('focus', () => open(pin));
     b.addEventListener('blur', () => { if (pinned !== pin) close(); });
-    b.addEventListener('click', (e) => { e.stopPropagation(); pinned = pinned === pin ? null : pin; pinned ? open(pin) : close(); });
+    b.addEventListener('click', (e) => {
+      e.stopPropagation(); pinned = pinned === pin ? null : pin;
+      if (!pinned) return close();
+      // метку в центр видимой части, чтобы карточка не упиралась в край (важно на телефоне)
+      map.easeTo({ center: pin.lngLat, padding: pad(), duration: reduce ? 0 : 500 });
+      map.once('moveend', () => { if (pinned === pin) open(pin); });
+      open(pin);
+    });
     row.addEventListener('mouseenter', () => b.classList.add('is-hot'));
     row.addEventListener('mouseleave', () => b.classList.remove('is-hot'));
     row.querySelector('.row__go').addEventListener('click', () => goTo(pin));
+    if (row.dataset.photo) later0(() => { new Image().src = row.dataset.photo; });
     return pin;
   });
 
   function open(pin) {
     pins.forEach((p) => { p.b.classList.toggle('is-open', p === pin); p.row.classList.toggle('is-hot', p === pin); });
     popup?.remove();
-    const below = map.project(pin.lngLat).y - pad().top < 260;      // у верхнего края окна карточка открывается вниз
+    // карточка открывается туда, где больше места: вверх от метки или вниз
+    const y = map.project(pin.lngLat).y, above = y - pad().top, under = mapEl.clientHeight - y, CARD = 360;
+    const below = above < CARD && under > above;
     popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, anchor: below ? 'top' : 'bottom', offset: below ? 12 : 34, maxWidth: 'none', className: 'pop' })
       .setLngLat(pin.lngLat).setDOMContent(card(pin.row)).addTo(map);
   }
@@ -241,7 +255,7 @@
     const t0 = performance.now();
     const step = (now) => {
       const k = ms ? ease(Math.min(1, (now - t0) / ms)) : 1;
-      map.setPaintProperty('buildings', 'fill-extrusion-height', ['*', HEIGHT, k]);
+      map.setPaintProperty('buildings', 'fill-extrusion-height', ['*', HEIGHT, LIFT * k]);
       if (k < 1) raf = requestAnimationFrame(step);
     };
     step(t0);
