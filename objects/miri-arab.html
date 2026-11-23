@@ -13,8 +13,9 @@
 <header class="nav">
   <div class="container nav__in">
     <a class="nav__mark" href="../">Palm</a>
-    <a class="nav__back" href="../#index">Все объекты</a>
-    <a class="btn btn--primary" href="../#contact">Записаться на показ</a>
+    <ul class="nav__links"><li><a href=".././">Карта</a></li><li><a href="../catalog.html" aria-current=page>Объекты</a></li><li><a href="../about.html">О компании</a></li><li><a href="../contacts.html">Контакты</a></li></ul>
+    <details class="nav__menu"><summary>Меню</summary><ul><li><a href=".././">Карта</a></li><li><a href="../catalog.html" aria-current=page>Объекты</a></li><li><a href="../about.html">О компании</a></li><li><a href="../contacts.html">Контакты</a></li></ul></details>
+    <a class="btn btn--primary" href="../contacts.html#show">Записаться на показ</a>
   </div>
 </header>
 <main class="obj">
@@ -39,11 +40,17 @@
       </dl>
       <div class="obj__actions">
         <a class="btn btn--primary" href="../#pin=miri-arab">Показать на карте</a>
-        <a class="btn" href="../#index">Все объекты</a>
+        <a class="btn" href="../catalog.html">Все объекты</a>
       </div>
     </div>
   </div>
 </main>
+<footer class="foot">
+  <div class="container foot__in">
+    <p class="foot__mark">Palm</p>
+    <ul class="foot__links"><li><a href=".././">Карта</a></li><li><a href="../catalog.html" aria-current=page>Объекты</a></li><li><a href="../about.html">О компании</a></li><li><a href="../contacts.html">Контакты</a></li><li><a href="../credits.html">Авторы фото</a></li></ul>
+  </div>
+</footer>
 <script src="../gallery.js"></script>
 </body>
 </html>
