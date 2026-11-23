@@ -13,6 +13,7 @@
   --color-ink: #1d1d1f; --color-ink-2: #424245; --color-muted: #6e6e73; --color-rule: #d2d2d7;
   --color-accent: #0071e3; --color-accent-hover: #0077ed; --color-accent-ink: #ffffff; --color-focus: #0071e3;
   --color-dark: #1d1d1f; --color-dark-ink: #f5f5f7; --color-dark-muted: #a1a1a6; --color-dark-rule: #424245;
+  --color-scrim: rgb(255 255 255 / 0.94); --color-scrim-mid: rgb(255 255 255 / 0.8); --color-scrim-0: rgb(255 255 255 / 0);
   --color-glass: rgb(255 255 255 / 0.78); --color-fill: rgb(118 118 128 / 0.12); --color-fill-hover: rgb(118 118 128 / 0.2);
   /* карта */
   --color-land: #f1f1f4; --color-sheet: #ffffff; --color-road-case: #dcdce2; --color-building: #dedee6;
