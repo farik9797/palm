@@ -8,10 +8,10 @@
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const CENTER = [64.4168, 39.7742];
-  // на широком экране заголовок лежит слева — сдвигаем центр карты вправо
-  const pad = () => ({ top: 0, right: 0, bottom: 0, left: mapEl.clientWidth > 768 ? Math.round(mapEl.clientWidth * 0.42) : 0 });
-  const flat = () => ({ center: CENTER, zoom: 13.5, pitch: 0, bearing: 0, padding: pad() });
-  const tilted = () => ({ center: [64.4185, 39.7735], zoom: 14.9, pitch: 60, bearing: -24, padding: pad() });
+  const pad = () => ({ top: 0, right: 0, bottom: 0, left: 0 });
+  const touch = matchMedia('(pointer: coarse)').matches;
+  const flat = () => ({ center: CENTER, zoom: 13.0, pitch: 0, bearing: 0, padding: pad() });
+  const tilted = () => ({ center: [64.4185, 39.7735], zoom: 14.5, pitch: 60, bearing: -24, padding: pad() });
   const RINGS = 6;
 
   // токены CSS → rgba для MapLibre (oklch он не понимает)
@@ -48,7 +48,8 @@
     ...(reduce ? tilted() : flat()),
     minZoom: 12, maxZoom: 18.5, maxPitch: 70,
     maxBounds: [[64.30, 39.70], [64.53, 39.85]],
-    cooperativeGestures: true,
+    scrollZoom: false,              // колесо всегда прокручивает страницу; масштаб — кнопками, двойным кликом, щипком
+    cooperativeGestures: touch,     // на телефоне один палец листает страницу, два двигают карту
     locale: {
       'CooperativeGesturesHandler.WindowsHelpText': 'Чтобы приблизить карту, прокручивайте с зажатым Ctrl',
       'CooperativeGesturesHandler.MacHelpText': 'Чтобы приблизить карту, прокручивайте с зажатым ⌘',
@@ -232,7 +233,7 @@
   }
   function landPins(on) { pins.forEach((p) => p.b.classList.toggle('is-up', !on)); }
   function interactive(on) {
-    ['dragPan', 'dragRotate', 'scrollZoom', 'touchZoomRotate', 'doubleClickZoom', 'keyboard'].forEach((h) => map[h][on ? 'enable' : 'disable']());
+    ['dragPan', 'dragRotate', 'touchZoomRotate', 'doubleClickZoom', 'keyboard'].forEach((h) => map[h][on ? 'enable' : 'disable']());
   }
   function stop() { cancelAnimationFrame(raf); timers.splice(0).forEach(clearTimeout); map.stop(); }
 
