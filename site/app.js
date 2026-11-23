@@ -269,7 +269,6 @@
     if (state === 'done') return;
     stop(); state = 'done';
     removeSketch(); reveal(true); rise(0); landPins(true); interactive(true);
-    $('replay').hidden = reduce;
     if (map.getPitch() < 5) map.jumpTo(tilted());
   }
 
@@ -277,7 +276,6 @@
     stop(); state = 'playing';
     pinned = null; close(); landPins(false); interactive(false); reveal(false);
     map.setPaintProperty('buildings', 'fill-extrusion-height', 0);
-    $('replay').hidden = true;
     map.jumpTo(flat());
     map.once('idle', () => {
       if (state !== 'playing') return;
@@ -304,7 +302,7 @@
         rise(2600);
       }, total + 700);
       later(() => { removeSketch(); landPins(true); }, total + 3300);
-      later(() => { state = 'done'; interactive(true); $('replay').hidden = false; map.setPadding(pad()); }, total + 4100);
+      later(() => { state = 'done'; interactive(true); map.setPadding(pad()); }, total + 4100);
     });
   }
 
@@ -327,6 +325,5 @@
   }
 
   map.on('load', () => (reduce ? finish() : play()));
-  $('replay').addEventListener('click', play);
   mapEl.addEventListener('pointerdown', () => { if (state === 'playing') finish(); });   // клик по карте пропускает интро
 })();
