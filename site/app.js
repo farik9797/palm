@@ -8,19 +8,16 @@
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const CENTER = [64.4168, 39.7742];
-  // раскрытие карты по прокрутке: p = 0 — окно под заголовком, p = 1 — весь экран
+  // карта на весь экран, текст поверх: p = 0 — текст виден, p = 1 — текст ушёл
   const hero = $('hero'), copy = $('hero-copy'), stage = mapEl.parentElement;
   const scrolly = !reduce && !!hero;
   let p = 0, inset = { top: 0, side: 0, bot: 0 };
   const pad = () => { const k = 1 - p; return { top: inset.top * k, right: inset.side * k, bottom: inset.bot * k, left: inset.side * k }; };
-  const range = () => stage.clientHeight * 0.85;          // сколько прокрутки занимает раскрытие
+  const range = () => stage.clientHeight * 0.5;           // сколько прокрутки занимает исчезновение текста
   function measure() {
     if (!scrolly) return;
-    const cs = getComputedStyle(hero);
-    inset = { top: copy.offsetHeight, side: 0, bot: parseFloat(cs.getPropertyValue('--bot')) || 24 };
+    inset = { top: copy.offsetHeight, side: 0, bot: 0 };      // камера держит центр города ниже текста
     hero.style.setProperty('--top', `${inset.top}px`);
-    const probe = document.createElement('div'); probe.style.cssText = 'position:absolute;visibility:hidden;width:var(--side)'; stage.append(probe);
-    inset.side = probe.offsetWidth; probe.remove();
   }
   if (scrolly) { document.documentElement.classList.add('js-scroll'); measure(); }
   const touch = matchMedia('(pointer: coarse)').matches;
@@ -307,7 +304,7 @@
     if (next === p) return;
     p = next;
     hero.style.setProperty('--p', p.toFixed(4));
-    copy.classList.toggle('is-gone', p > 0.42);
+    copy.classList.toggle('is-gone', p > 0.72);
     if (state === 'done' && !map.isMoving()) map.setPadding(pad());
   }
   if (scrolly) {
