@@ -22,7 +22,7 @@
   if (scrolly) { document.documentElement.classList.add('js-scroll'); measure(); }
   const touch = matchMedia('(pointer: coarse)').matches;
   const flat = () => ({ center: CENTER, zoom: 13.0, pitch: 0, bearing: 0, padding: pad() });
-  const tilted = () => ({ center: [64.4185, 39.7735], zoom: 14.9, pitch: 62, bearing: -24, padding: pad() });
+  const tilted = () => ({ center: [64.4185, 39.7735], zoom: 14.5, pitch: 60, bearing: -24, padding: pad() });
   const RINGS = 6;
 
   // токены CSS → rgba для MapLibre (oklch он не понимает)
@@ -37,13 +37,12 @@
   const C = {
     paper: tok('--color-land'), roadCase: tok('--color-road-case'), sheet: tok('--color-sheet'), ink: tok('--color-ink'), ink2: tok('--color-ink-2'),
     contour: tok('--color-contour'), water: tok('--color-water'), green: tok('--color-green-soft'),
-    building: tok('--color-building'), buildingHi: tok('--color-building-hi'), clear: tok('--color-ink', 0),
+    building: tok('--color-building'), clear: tok('--color-ink', 0),
   };
 
   const MAJOR = ['motorway', 'trunk', 'primary', 'secondary', 'tertiary'];
   const NAME = ['coalesce', ['get', 'name:ru'], ['get', 'name']];
   const HEIGHT = ['coalesce', ['get', 'render_height'], 5];
-  const LIFT = 3;   // в OSM по Бухаре этажность почти не указана (везде 5 м), поэтому высота утрирована ради объёма
   const w = (a, b, c) => ['interpolate', ['exponential', 1.6], ['zoom'], 12, a, 15, b, 18, c];
   const isMajor = ['in', ['get', 'class'], ['literal', MAJOR]];
   const w2 = (M, m) => w(...[0, 1, 2].map((i) => ['case', isMajor, M[i], m[i]]));
@@ -52,7 +51,7 @@
   const REVEAL = [
     ['green', 'fill-opacity', 0.9], ['water', 'fill-opacity', 1], ['waterway', 'line-opacity', 1],
     ['road-case', 'line-opacity', 1], ['road', 'line-opacity', 1],
-    ['buildings', 'fill-extrusion-opacity', 1], ['street-names', 'text-opacity', 1], ['place-names', 'text-opacity', 1],
+    ['buildings', 'fill-extrusion-opacity', 0.94], ['street-names', 'text-opacity', 1], ['place-names', 'text-opacity', 1],
   ];
 
   const map = new maplibregl.Map({
@@ -70,7 +69,6 @@
     attributionControl: { compact: true },
     style: {
       version: 8,
-      light: { anchor: 'map', position: [1.4, 215, 38], intensity: 0.55 },   // боковой свет: у домов видны грани
       glyphs: 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf',
       transition: { duration: 900, delay: 0 },
       sources: { omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet' } },
@@ -84,7 +82,7 @@
         { id: 'road', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['==', ['geometry-type'], 'LineString'], layout: { 'line-cap': 'round', 'line-join': 'round' },
           paint: { 'line-color': C.sheet, 'line-opacity': 0, 'line-width': w2([1.4, 5.4, 23], [0.4, 2.4, 13]) } },
         { id: 'buildings', type: 'fill-extrusion', source: 'omt', 'source-layer': 'building', minzoom: 13,
-          paint: { 'fill-extrusion-color': ['interpolate', ['linear'], HEIGHT, 4, C.building, 30, C.buildingHi], 'fill-extrusion-opacity': 0, 'fill-extrusion-height': 0, 'fill-extrusion-vertical-gradient': true } },
+          paint: { 'fill-extrusion-color': C.building, 'fill-extrusion-opacity': 0, 'fill-extrusion-height': 0, 'fill-extrusion-vertical-gradient': true } },
         { id: 'street-names', type: 'symbol', source: 'omt', 'source-layer': 'transportation_name', minzoom: 14.5,
           layout: { 'text-field': NAME, 'text-font': ['Noto Sans Regular'], 'symbol-placement': 'line', 'text-size': 12 },
           paint: { 'text-color': C.ink2, 'text-halo-color': C.paper, 'text-halo-width': 1.4, 'text-opacity': 0 } },
@@ -255,7 +253,7 @@
     const t0 = performance.now();
     const step = (now) => {
       const k = ms ? ease(Math.min(1, (now - t0) / ms)) : 1;
-      map.setPaintProperty('buildings', 'fill-extrusion-height', ['*', HEIGHT, LIFT * k]);
+      map.setPaintProperty('buildings', 'fill-extrusion-height', ['*', HEIGHT, k]);
       if (k < 1) raf = requestAnimationFrame(step);
     };
     step(t0);
