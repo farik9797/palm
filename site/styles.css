@@ -1,9 +1,10 @@
 /* Hallmark · shape: Feature Stack · genre: modern-minimal · theme: Furrow (deal manual, tone by request) · job: visit · draw: b3d4ec
- * hero: Poster · nav: search-led bar · footer: mast · imagery: the product · signature: the city drawing itself street by street, then rising into 3D
+ * hero: Stage · nav: search-led bar · footer: mast · imagery: the product · signature: the city drawing itself street by street, then rising into 3D
  * axes: light/grotesk-sans/warm · posture: committed · contrast: pass · fold: pass · v2.0.0 */
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R3 V4 · weakest: R, the index repeats «уточняется» until the client sends real objects; kept honest rather than invented */
 /* waive: Furrow do-not "never a map tile" — the brief asks for a real 3D map of Bukhara; tiles are restyled in the theme's survey colours */
 /* Hallmark · waive 71 · every h3 is a name inside a ruled index row, centred between two hairlines · a map index row holds its pin name level with its facts, so space above and below the name is equal */
+/* Hallmark · waive 44c · the hero is a headline beside a 560px map panel, ending above the fold · the client asked for a smaller map that lets the page scroll past it */
 /* answered: 77 — a single-purpose map page on a thin brief (map, index, contact, footer); 23 — the tangerine band is Furrow's own field, posture committed */
 /* waive: fonts — Red Hat has no Cyrillic; Onest, Golos Text and JetBrains Mono take the same roles */
 @import url("./tokens.css");
@@ -14,8 +15,6 @@
   --color-focus: oklch(56% 0.17 42);
   --color-water: oklch(70% 0.07 200);
   --color-building: oklch(89% 0.03 78);
-  --color-scrim-0: oklch(96% 0.011 85 / 0);
-  --color-scrim-1: oklch(96% 0.011 85 / 0.96);
   --nav-h: 72px;
 }
 
@@ -40,13 +39,12 @@ html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
 .nav__search input:hover { border-color: var(--color-ink); }
 
 /* hero */
-.hero { position: relative; display: grid; align-items: end; min-height: max(600px, calc(100svh - var(--nav-h))); border-bottom: var(--rule-hair) solid var(--color-ink); }
-.hero__map { position: absolute; inset: 0; background: linear-gradient(var(--color-grid) 1px, transparent 1px) 0 0 / 8px 8px, linear-gradient(90deg, var(--color-grid) 1px, transparent 1px) 0 0 / 8px 8px, var(--color-paper); }
-.hero__nojs { position: absolute; right: var(--gutter); bottom: var(--space-xl); max-width: 32ch; color: var(--color-muted); }
-.hero__scrim { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(90deg, var(--color-scrim-1) 0%, var(--color-scrim-1) 30%, var(--color-scrim-0) 48%); }
-.hero__copy { position: relative; display: grid; gap: var(--space-lg); padding-block: var(--space-2xl); pointer-events: none; }
-.hero__copy > * { pointer-events: auto; }
-.hero h1 { max-width: 11ch; }
+.hero { border-bottom: var(--rule-hair) solid var(--color-ink); }
+.hero__in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); align-items: center; gap: var(--gap-columns); padding-block: var(--space-2xl); }
+.hero__copy { display: grid; gap: var(--space-lg); }
+.hero__map { height: clamp(380px, 58svh, 560px); border: var(--rule-hair) solid var(--color-ink); border-radius: var(--radius-card); overflow: hidden; background: linear-gradient(var(--color-grid) 1px, transparent 1px) 0 0 / 8px 8px, linear-gradient(90deg, var(--color-grid) 1px, transparent 1px) 0 0 / 8px 8px, var(--color-paper); }
+.hero__nojs { padding: var(--space-lg); max-width: 32ch; color: var(--color-muted); }
+.hero h1 { max-width: 11ch; font-size: var(--text-display-s); }
 .hero .lead { max-width: 26ch; color: var(--color-ink-2); }
 .hero__actions { display: flex; flex-wrap: wrap; gap: var(--space-sm); }
 
@@ -126,10 +124,9 @@ html { scroll-behavior: smooth; scroll-padding-top: var(--nav-h); }
 @media (max-width: 48rem) {
   .nav__in { gap: var(--space-sm); }
   .nav .btn { display: none; }
-  .hero__map { position: relative; inset: auto; height: 62svh; min-height: 380px; order: 2; }
-  .hero__scrim { display: none; }
-  .hero__copy { padding-block: var(--space-xl); gap: var(--space-md); }
-  .hero { display: flex; flex-direction: column; align-items: stretch; min-height: 0; }
+  .hero__in { grid-template-columns: minmax(0, 1fr); padding-block: var(--space-xl); }
+  .hero__map { height: 52svh; min-height: 340px; }
+  .hero__copy { gap: var(--space-md); }
   .hero h1, .hero .lead { max-width: none; }
   .row dl { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); }
   .row dl > div { display: flex; justify-content: space-between; gap: var(--space-md); }
