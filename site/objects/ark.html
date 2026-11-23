@@ -19,10 +19,19 @@
 </header>
 <main class="obj">
   <div class="container obj__in">
-    <div class="obj__photo" data-slot="photo"><img src="../img/ark.jpg" alt="Крепость Арк"></div>
+    <div class="obj__media">
+      <div class="obj__photo" data-slot="photo" id="photo"><img src="../img/ark.jpg" alt="Крепость Арк"></div>
+      <div class="thumbs">
+        <a href="../img/ark.jpg" aria-current><img src="../img/ark.jpg" alt="Крепость Арк, фото 1" loading="lazy"></a>
+        <a href="../img/ark-2.jpg"><img src="../img/ark-2.jpg" alt="Крепость Арк, фото 2" loading="lazy"></a>
+        <a href="../img/ark-3.jpg"><img src="../img/ark-3.jpg" alt="Крепость Арк, фото 3" loading="lazy"></a>
+        <a href="../img/ark-4.jpg"><img src="../img/ark-4.jpg" alt="Крепость Арк, фото 4" loading="lazy"></a>
+      </div>
+    </div>
     <div class="obj__info">
       <p class="obj__kind">Ориентир</p>
       <h1>Крепость Арк</h1>
+      <p class="obj__desc">Крепость на искусственном холме в центре города. До 1920 года в Арке жили бухарские эмиры, сейчас внутри музей. Главные ворота выходят на площадь Регистан.</p>
       <dl class="facts">
         <div><dt>Что это</dt><dd>цитадель, резиденция бухарских эмиров</dd></div>
         <div><dt>Координаты</dt><dd>39.7778, 64.4108</dd></div>
@@ -31,9 +40,9 @@
         <a class="btn btn--primary" href="../#pin=ark">Показать на карте</a>
         <a class="btn" href="../#index">Все объекты</a>
       </div>
-      <p class="obj__credit">Фото: ほっきー, CC0, <a href="https://commons.wikimedia.org/wiki/File:Ark_of_Bukhara_2023.9.jpg">Wikimedia Commons</a></p>
     </div>
   </div>
 </main>
+<script src="../gallery.js"></script>
 </body>
 </html>
