@@ -3,7 +3,9 @@
 
 Запуск из корня проекта:  python3 tools/build_pages.py
 Одна строка <li class="row" data-pin ...> = одна метка на карте = одна страница.
-Необязательное описание объекта: <p class="row__desc" hidden>текст</p> внутри строки.
+Описание объекта: <p class="row__desc" hidden>текст</p> внутри строки.
+Галерея: data-gallery="img/a.jpg,img/b.jpg" у строки (главное фото — data-photo).
+Авторы фото берутся из site/img/credits.json и выводятся только на site/credits.html.
 """
 import html, json, re
 from pathlib import Path
@@ -55,7 +57,9 @@ PAGE = """<!doctype html>
 </header>
 <main class="obj">
   <div class="container obj__in">
-    <div class="obj__photo{empty}"{slot}>{photo}</div>
+    <div class="obj__media">
+      <div class="obj__photo{empty}"{slot} id="photo">{photo}</div>
+{thumbs}    </div>
     <div class="obj__info">
       <p class="obj__kind">{kind}</p>
       <h1>{name}</h1>
@@ -65,9 +69,10 @@ PAGE = """<!doctype html>
         <a class="btn btn--primary" href="../#pin={slug}">Показать на карте</a>
         <a class="btn" href="../#index">Все объекты</a>
       </div>
-{credit}    </div>
+    </div>
   </div>
 </main>
+<script src="../gallery.js"></script>
 </body>
 </html>
 """
@@ -86,13 +91,54 @@ for m in ROW.finditer(index):
                     for dt, dd in re.findall(r"<dt>(.*?)</dt><dd[^>]*>(.*?)</dd>", body, re.S))
     facts += f'        <div><dt>Координаты</dt><dd>{attr(attrs, "data-lat")}, {attr(attrs, "data-lng")}</dd></div>\n'
     d = re.search(r'class="row__desc"[^>]*>(.*?)</p>', body, re.S)
-    desc = f'      <p class="obj__desc">{d[1].strip()}</p>\n' if d and d[1].strip() else ""
-    c = credits.get(slug)
-    credit = (f'      <p class="obj__credit">Фото: {html.escape(c["author"])}, {html.escape(c["license"])}, '
-              f'<a href="{html.escape(c["page"])}">Wikimedia Commons</a></p>\n') if c and photo else ""
+    desc = (f'      <p class="obj__desc">{d[1].strip()}</p>\n' if d and d[1].strip()
+            else '      <p class="obj__desc obj__desc--empty">Здесь будет описание объекта</p>\n')
+    shots = ([photo] if photo else []) + [g for g in attr(attrs, "data-gallery").split(",") if g]
+    if len(shots) > 1:
+        thumbs = '      <div class="thumbs">\n' + "".join(
+            f'        <a href="../{g}"{" aria-current" if i == 0 else ""}><img src="../{g}" alt="{html.escape(name)}, фото {i + 1}" loading="lazy"></a>\n'
+            for i, g in enumerate(shots)) + "      </div>\n"
+    elif not shots:
+        thumbs = '      <div class="thumbs">\n' + '        <span class="thumbs__empty">Фото</span>\n' * 4 + "      </div>\n"
+    else:
+        thumbs = ""
     (out / f"{slug}.html").write_text(PAGE.format(
-        name=name, kind=label, slug=slug, facts=facts, desc=desc, credit=credit,
+        name=name, kind=label, slug=slug, facts=facts, desc=desc, thumbs=thumbs,
         empty="" if photo else " obj__photo--empty", slot=' data-slot="photo"' if photo else "",
         photo=f'<img src="../{photo}" alt="{html.escape(name)}">' if photo else "Здесь будет фото объекта"))
     n += 1
-print(f"страниц: {n} → {out}")
+
+# страница «Авторы фото»: все снимки из credits.json, сгруппированные по объекту
+names = {attr(m["attrs"], "data-slug"): re.search(r'class="row__go"[^>]*>(.*?)</a>', m["body"], re.S)[1].strip() for m in ROW.finditer(index)}
+rows = ""
+for key, c in credits.items():
+    owner = names.get(key) or names.get(re.sub(r"-\d+$", "", key), key)
+    rows += (f'      <li class="row"><span class="row__kind">{owner}</span><h3>{html.escape(c["author"])}</h3>'
+             f'<dl><div><dt>Лицензия</dt><dd>{html.escape(c["license"])}</dd></div>'
+             f'<div><dt>Источник</dt><dd><a href="{html.escape(c["page"])}">Wikimedia Commons</a></dd></div></dl></li>\n')
+(SITE / "credits.html").write_text(f"""<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Palm: авторы фото и данные карты</title>
+<meta name="robots" content="noindex">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="nav"><div class="container nav__in"><a class="nav__mark" href="./">Palm</a></div></header>
+<main>
+<section class="index">
+  <div class="container">
+    <div class="index__head"><h1>Авторы фото</h1></div>
+    <ul class="rows rows--credits">
+{rows}    </ul>
+    <p class="rows__empty">Данные карты: участники <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>, тайлы <a href="https://openfreemap.org">OpenFreeMap</a>.</p>
+  </div>
+</section>
+</main>
+</body>
+</html>
+""")
+print(f"страниц: {n} → {out}; авторов фото: {len(credits)}")
