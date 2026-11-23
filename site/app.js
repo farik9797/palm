@@ -23,7 +23,7 @@
   const touch = matchMedia('(pointer: coarse)').matches;
   const flat = () => ({ center: CENTER, zoom: 13.0, pitch: 0, bearing: 0, padding: pad() });
   const tilted = () => ({ center: [64.4185, 39.7735], zoom: 14.5, pitch: 60, bearing: -24, padding: pad() });
-  const RINGS = 6;
+  const RINGS = 12;
 
   // токены CSS → rgba для MapLibre (oklch он не понимает)
   const cv = document.createElement('canvas'); cv.width = cv.height = 1;
@@ -70,7 +70,7 @@
     style: {
       version: 8,
       glyphs: 'https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf',
-      transition: { duration: 900, delay: 0 },
+      transition: { duration: 1500, delay: 0 },
       sources: { omt: { type: 'vector', url: 'https://tiles.openfreemap.org/planet' } },
       layers: [
         { id: 'paper', type: 'background', paint: { 'background-color': C.paper } },
@@ -202,6 +202,7 @@
   let raf = 0, timers = [], state = 'idle';
   const later = (fn, ms) => timers.push(setTimeout(fn, ms));
   const ease = (t) => 1 - Math.pow(1 - t, 3);
+  const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 
   function buildSketch() {
     const seen = new Set(), feats = [];
@@ -223,8 +224,13 @@
   }
 
   const gradient = (p, color) => {
-    const t = Math.min(0.998, Math.max(0.002, p));
-    return ['interpolate', ['linear'], ['line-progress'], 0, p <= 0 ? C.clear : color, t - 0.001, p <= 0 ? C.clear : color, t, p >= 1 ? color : C.clear, 1, p >= 1 ? color : C.clear];
+    // мягкий кончик линии: цвет плавно сходит на нет на последних 12 % пути, а не обрывается
+    if (p <= 0) return ['interpolate', ['linear'], ['line-progress'], 0, C.clear, 1, C.clear];
+    if (p >= 1) return ['interpolate', ['linear'], ['line-progress'], 0, color, 1, color];
+    const head = p * 1.12, tail = Math.max(0.0005, head - 0.12);
+    const stops = [0, color, Math.min(tail, 0.997), color];
+    if (head < 0.999) stops.push(Math.max(head, tail + 0.001), C.clear, 1, C.clear); else stops.push(1, C.clear);
+    return ['interpolate', ['linear'], ['line-progress'], ...stops];
   };
 
   function addSketch() {
@@ -280,12 +286,15 @@
     map.once('idle', () => {
       if (state !== 'playing') return;
       if (!addSketch()) return finish();
-      const DUR = 2200, GAP = 480, total = DUR + GAP * (RINGS - 1);
-      const t0 = performance.now();
+      // 12 колец идут волной от центра: каждое рисуется долго и с плавным разгоном, соседние сильно перекрываются
+      const DUR = 3000, GAP = 230, total = DUR + GAP * (RINGS - 1);
+      const t0 = performance.now(), last = new Array(RINGS).fill(-1);
       const draw = (now) => {
         const t = now - t0;
         for (let r = 0; r < RINGS; r++) {
-          const p = ease(Math.min(1, Math.max(0, (t - r * GAP) / DUR)));
+          const p = easeInOut(Math.min(1, Math.max(0, (t - r * GAP) / DUR)));
+          if (p === last[r]) continue;
+          last[r] = p;
           map.setPaintProperty(`sketch-${r}-0`, 'line-gradient', gradient(p, C.contour));
           map.setPaintProperty(`sketch-${r}-1`, 'line-gradient', gradient(p, C.ink));
         }
@@ -296,13 +305,13 @@
       later(() => {                                   // карта проявляется под рисунком
         reveal(true);
         sketchIds.forEach((id) => map.setPaintProperty(id, 'line-opacity', 0));
-      }, total + 200);
+      }, total + 150);
       later(() => {                                   // камера наклоняется, здания поднимаются
-        map.easeTo({ ...tilted(), duration: 3200, easing: (t) => t * t * (3 - 2 * t), essential: true });
-        rise(2600);
-      }, total + 700);
-      later(() => { removeSketch(); landPins(true); }, total + 3300);
-      later(() => { state = 'done'; interactive(true); map.setPadding(pad()); }, total + 4100);
+        map.easeTo({ ...tilted(), duration: 3800, easing: easeInOut, essential: true });
+        rise(3400);
+      }, total + 900);
+      later(() => { removeSketch(); landPins(true); }, total + 4200);
+      later(() => { state = 'done'; interactive(true); map.setPadding(pad()); }, total + 4900);
     });
   }
 
