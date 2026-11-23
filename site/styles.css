@@ -31,22 +31,22 @@ body { letter-spacing: -0.011em; }
 
 /* hero: без скрипта и при reduced motion — заголовок, под ним карта в скруглённом окне */
 .hero { --p: 0; --top: 0px; --side: max(var(--gutter), calc((100% - var(--container)) / 2 + var(--gutter))); --bot: var(--space-lg); }
-.hero__copy { display: grid; justify-items: center; gap: var(--space-md); padding: clamp(var(--space-xl), 7svh, var(--space-3xl)) var(--gutter) var(--space-xl); text-align: center; }
-.hero h1 { max-width: 16ch; font-size: var(--text-display); line-height: 1.05; }
-.hero .lead { max-width: 30ch; color: var(--color-muted); }
+.hero__copy { display: grid; justify-items: center; gap: var(--space-sm); padding: var(--space-xl) var(--gutter) var(--space-lg); text-align: center; }
+.hero h1 { max-width: 20ch; font-size: clamp(1.75rem, 2vw + 1rem, 2.75rem); line-height: 1.1; }
+.hero .lead { max-width: 40ch; color: var(--color-ink-2); font-size: var(--text-md); }
 .hero__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--space-xs); margin-top: var(--space-xs); }
 .hero__map { height: 62svh; min-height: 380px; margin: 0 var(--side) var(--space-2xl); border-radius: var(--radius-stage); overflow: hidden; background: var(--color-land); }
 .hero__nojs { padding: var(--space-lg); max-width: 32ch; color: var(--color-muted); }
 
-/* hero со скриптом: сцена прилипает, карта раскрывается на весь экран по мере прокрутки (--p: 0 → 1) */
-.js-scroll .hero { height: 230svh; }
+/* hero со скриптом: карта сразу на весь экран, текст лежит поверх и гаснет по мере прокрутки (--p: 0 → 1) */
+.js-scroll .hero { height: 170svh; }
 .js-scroll .hero__stage { position: sticky; top: var(--nav-h); height: calc(100svh - var(--nav-h)); overflow: clip; }
-.js-scroll .hero__copy { position: absolute; inset: 0 0 auto; z-index: var(--z-raised); opacity: calc(1 - var(--p) * 2.4); transform: translateY(calc(var(--p) * -56px)); }
+.js-scroll .hero__stage::before { content: ""; position: absolute; inset: 0 0 auto; z-index: var(--z-base); height: calc(var(--top) + var(--space-3xl)); pointer-events: none; opacity: calc(1 - var(--p) * 1.4); background: linear-gradient(var(--color-scrim) 0%, var(--color-scrim-mid) 55%, var(--color-scrim-0) 100%); }
+.js-scroll .hero__copy { position: absolute; inset: 0 0 auto; z-index: var(--z-raised); pointer-events: none; opacity: calc(1 - var(--p) * 1.4); transform: translateY(calc(var(--p) * -40px)); }
+.js-scroll .hero__copy > .hero__actions { pointer-events: auto; }
 .js-scroll .hero__copy.is-gone { visibility: hidden; }
-.js-scroll .hero__map { position: absolute; inset: 0; height: auto; min-height: 0; margin: 0; border-radius: 0;
-  clip-path: inset(calc(var(--top) * (1 - var(--p))) calc(var(--side) * (1 - var(--p))) calc(var(--bot) * (1 - var(--p))) round calc(var(--radius-stage) * (1 - var(--p)))); }
-.js-scroll .maplibregl-ctrl-top-right { top: calc(var(--top) * (1 - var(--p))); right: calc(var(--side) * (1 - var(--p))); }
-.js-scroll .maplibregl-ctrl-bottom-right { bottom: calc(var(--bot) * (1 - var(--p))); right: calc(var(--side) * (1 - var(--p))); }
+.js-scroll .hero__map { position: absolute; inset: 0; height: auto; min-height: 0; margin: 0; border-radius: 0; }
+.js-scroll .maplibregl-ctrl-top-right { top: calc(var(--top) * (1 - var(--p))); }
 
 /* map chrome */
 .maplibregl-map { font-family: var(--font-body); }
