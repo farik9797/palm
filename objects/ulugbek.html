@@ -19,10 +19,17 @@
 </header>
 <main class="obj">
   <div class="container obj__in">
-    <div class="obj__photo" data-slot="photo"><img src="../img/ulugbek.jpg" alt="Медресе Улугбека"></div>
+    <div class="obj__media">
+      <div class="obj__photo" data-slot="photo" id="photo"><img src="../img/ulugbek.jpg" alt="Медресе Улугбека"></div>
+      <div class="thumbs">
+        <a href="../img/ulugbek.jpg" aria-current><img src="../img/ulugbek.jpg" alt="Медресе Улугбека, фото 1" loading="lazy"></a>
+        <a href="../img/ulugbek-4.jpg"><img src="../img/ulugbek-4.jpg" alt="Медресе Улугбека, фото 2" loading="lazy"></a>
+      </div>
+    </div>
     <div class="obj__info">
       <p class="obj__kind">Ориентир</p>
       <h1>Медресе Улугбека</h1>
+      <p class="obj__desc">Самое старое из сохранившихся медресе Бухары: его построили в 1417 году по приказу Улугбека. Напротив, через улицу, стоит медресе Абдулазиз-хана, оно моложе на два с лишним века.</p>
       <dl class="facts">
         <div><dt>Построено</dt><dd>1417 год</dd></div>
         <div><dt>Что это</dt><dd>медресе эпохи Тимуридов</dd></div>
@@ -32,9 +39,9 @@
         <a class="btn btn--primary" href="../#pin=ulugbek">Показать на карте</a>
         <a class="btn" href="../#index">Все объекты</a>
       </div>
-      <p class="obj__credit">Фото: Umid1108, CC BY-SA 4.0, <a href="https://commons.wikimedia.org/wiki/File:Bukhara_Calligraphy_Art_History_Museum._(Ulugbek_madrasah)._Bukhara.jpg">Wikimedia Commons</a></p>
     </div>
   </div>
 </main>
+<script src="../gallery.js"></script>
 </body>
 </html>
