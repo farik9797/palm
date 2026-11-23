@@ -14,8 +14,6 @@ body { letter-spacing: -0.011em; }
 .btn:focus-visible { transition: none; }
 .btn--primary { background: var(--color-accent); color: var(--color-accent-ink); }
 .btn--primary:hover { background: var(--color-accent-hover); }
-.btn--quiet { background: none; color: var(--color-accent); }
-.btn--quiet:hover { background: var(--color-fill); }
 .btn--light { background: var(--color-dark-ink); color: var(--color-dark); }
 .btn--light:hover { background: var(--color-paper); }
 
