@@ -7,7 +7,7 @@
 <meta name="description" content="Интерактивная 3D-карта Бухары: объекты и городские ориентиры. Наведите на метку, чтобы увидеть сведения о доме.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Onest:wght@600&family=Golos+Text:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css">
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -26,14 +26,14 @@
 
 <main id="top">
 
-<section class="hero" aria-labelledby="h-hero">
-  <div class="container hero__in">
-    <div class="hero__copy">
+<section class="hero" id="hero" aria-labelledby="h-hero">
+  <div class="hero__stage">
+    <div class="hero__copy" id="hero-copy">
       <h1 id="h-hero">Новостройки Бухары на живой карте</h1>
       <p class="lead">Выберите метку, и откроется карточка дома.</p>
       <div class="hero__actions">
         <a class="btn btn--primary" href="#index">Смотреть объекты</a>
-        <button class="btn" type="button" id="replay" hidden>Прорисовать заново</button>
+        <button class="btn btn--quiet" type="button" id="replay" hidden>Прорисовать заново</button>
       </div>
     </div>
     <div class="hero__map" id="map" role="application" aria-label="3D-карта Бухары с метками объектов">
@@ -128,7 +128,7 @@
       <div><dt>Телефон отдела продаж</dt><dd>уточняется</dd></div>
       <div><dt>Офис в Бухаре</dt><dd>уточняется</dd></div>
     </dl>
-    <a class="btn" href="#top">Вернуться к карте</a>
+    <a class="btn btn--light" href="#top">Вернуться к карте</a>
   </div>
 </section>
 
