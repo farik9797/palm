@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Объекты на карте Бухары | Palm</title>
+<meta name="description" content="Все объекты и городские ориентиры с карты Бухары: фото, краткие сведения, переход на карту.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="nav">
+  <div class="container nav__in">
+    <a class="nav__mark" href="./">Palm</a>
+    <ul class="nav__links"><li><a href="./">Карта</a></li><li><a href="catalog.html" aria-current=page>Объекты</a></li><li><a href="about.html">О компании</a></li><li><a href="contacts.html">Контакты</a></li></ul>
+    <details class="nav__menu"><summary>Меню</summary><ul><li><a href="./">Карта</a></li><li><a href="catalog.html" aria-current=page>Объекты</a></li><li><a href="about.html">О компании</a></li><li><a href="contacts.html">Контакты</a></li></ul></details>
+    <a class="btn btn--primary" href="contacts.html#show">Записаться на показ</a>
+  </div>
+</header>
+<main class="page">
+  <div class="container">
+    <div class="page__head page__head--row">
+      <h1>Объекты</h1>
+      <div class="page__tools">
+        <form class="field-search" role="search" id="search">
+          <label class="visually-hidden" for="q">Поиск по объектам</label>
+          <input id="q" type="search" placeholder="Найти дом или ориентир" autocomplete="off">
+        </form>
+        <div class="seg" role="group" aria-label="Что показывать">
+          <button type="button" class="seg__b" data-filter="all" aria-pressed="true">Всё</button>
+          <button type="button" class="seg__b" data-filter="object" aria-pressed="false">Объекты</button>
+          <button type="button" class="seg__b" data-filter="landmark" aria-pressed="false">Ориентиры</button>
+        </div>
+      </div>
+    </div>
+    <ul class="tiles" id="tiles">
+      <li class="tile" data-kind="object">
+        <div class="tile__photo tile__photo--empty">Здесь будет фото объекта</div>
+        <div class="tile__body">
+          <span class="tile__kind">Объект</span>
+          <h2><a class="tile__go" href="objects/obekt-1.html">Демо-объект 1</a></h2>
+          <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+          <a class="tile__map" href="./#pin=obekt-1">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="object">
+        <div class="tile__photo tile__photo--empty">Здесь будет фото объекта</div>
+        <div class="tile__body">
+          <span class="tile__kind">Объект</span>
+          <h2><a class="tile__go" href="objects/obekt-2.html">Демо-объект 2</a></h2>
+          <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+          <a class="tile__map" href="./#pin=obekt-2">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="object">
+        <div class="tile__photo tile__photo--empty">Здесь будет фото объекта</div>
+        <div class="tile__body">
+          <span class="tile__kind">Объект</span>
+          <h2><a class="tile__go" href="objects/obekt-3.html">Демо-объект 3</a></h2>
+          <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+          <a class="tile__map" href="./#pin=obekt-3">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="object">
+        <div class="tile__photo tile__photo--empty">Здесь будет фото объекта</div>
+        <div class="tile__body">
+          <span class="tile__kind">Объект</span>
+          <h2><a class="tile__go" href="objects/obekt-4.html">Демо-объект 4</a></h2>
+          <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+          <a class="tile__map" href="./#pin=obekt-4">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="landmark">
+        <div class="tile__photo" data-slot="photo"><img src="img/ark.jpg" alt="Крепость Арк" loading="lazy"></div>
+        <div class="tile__body">
+          <span class="tile__kind">Ориентир</span>
+          <h2><a class="tile__go" href="objects/ark.html">Крепость Арк</a></h2>
+          <dl><div><dt>Что это</dt><dd>цитадель, резиденция бухарских эмиров</dd></div></dl>
+          <a class="tile__map" href="./#pin=ark">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="landmark">
+        <div class="tile__photo" data-slot="photo"><img src="img/kalyan.jpg" alt="Минарет Калян" loading="lazy"></div>
+        <div class="tile__body">
+          <span class="tile__kind">Ориентир</span>
+          <h2><a class="tile__go" href="objects/kalyan.html">Минарет Калян</a></h2>
+          <dl><div><dt>Построен</dt><dd>1127 год</dd></div><div><dt>Что это</dt><dd>главный минарет города</dd></div></dl>
+          <a class="tile__map" href="./#pin=kalyan">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="landmark">
+        <div class="tile__photo" data-slot="photo"><img src="img/miri-arab.jpg" alt="Медресе Мири-Араб" loading="lazy"></div>
+        <div class="tile__body">
+          <span class="tile__kind">Ориентир</span>
+          <h2><a class="tile__go" href="objects/miri-arab.html">Медресе Мири-Араб</a></h2>
+          <dl><div><dt>Построено</dt><dd>1530-е годы</dd></div><div><dt>Что это</dt><dd>действующее медресе</dd></div></dl>
+          <a class="tile__map" href="./#pin=miri-arab">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="landmark">
+        <div class="tile__photo" data-slot="photo"><img src="img/ulugbek.jpg" alt="Медресе Улугбека" loading="lazy"></div>
+        <div class="tile__body">
+          <span class="tile__kind">Ориентир</span>
+          <h2><a class="tile__go" href="objects/ulugbek.html">Медресе Улугбека</a></h2>
+          <dl><div><dt>Построено</dt><dd>1417 год</dd></div><div><dt>Что это</dt><dd>медресе эпохи Тимуридов</dd></div></dl>
+          <a class="tile__map" href="./#pin=ulugbek">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="landmark">
+        <div class="tile__photo" data-slot="photo"><img src="img/lyabi-hauz.jpg" alt="Ляби-Хауз" loading="lazy"></div>
+        <div class="tile__body">
+          <span class="tile__kind">Ориентир</span>
+          <h2><a class="tile__go" href="objects/lyabi-hauz.html">Ляби-Хауз</a></h2>
+          <dl><div><dt>Построен</dt><dd>1620 год</dd></div><div><dt>Что это</dt><dd>площадь у водоёма</dd></div></dl>
+          <a class="tile__map" href="./#pin=lyabi-hauz">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="landmark">
+        <div class="tile__photo" data-slot="photo"><img src="img/chor-minor.jpg" alt="Чор-Минор" loading="lazy"></div>
+        <div class="tile__body">
+          <span class="tile__kind">Ориентир</span>
+          <h2><a class="tile__go" href="objects/chor-minor.html">Чор-Минор</a></h2>
+          <dl><div><dt>Построен</dt><dd>1807 год</dd></div><div><dt>Что это</dt><dd>медресе с четырьмя башнями</dd></div></dl>
+          <a class="tile__map" href="./#pin=chor-minor">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="landmark">
+        <div class="tile__photo" data-slot="photo"><img src="img/samanid.jpg" alt="Мавзолей Саманидов" loading="lazy"></div>
+        <div class="tile__body">
+          <span class="tile__kind">Ориентир</span>
+          <h2><a class="tile__go" href="objects/samanid.html">Мавзолей Саманидов</a></h2>
+          <dl><div><dt>Построен</dt><dd>рубеж IX и X веков</dd></div><div><dt>Что это</dt><dd>усыпальница династии Саманидов</dd></div></dl>
+          <a class="tile__map" href="./#pin=samanid">На карте</a>
+        </div>
+      </li>
+      <li class="tile" data-kind="landmark">
+        <div class="tile__photo" data-slot="photo"><img src="img/bolo-hauz.jpg" alt="Мечеть Боло-Хауз" loading="lazy"></div>
+        <div class="tile__body">
+          <span class="tile__kind">Ориентир</span>
+          <h2><a class="tile__go" href="objects/bolo-hauz.html">Мечеть Боло-Хауз</a></h2>
+          <dl><div><dt>Построена</dt><dd>1712 год</dd></div><div><dt>Что это</dt><dd>мечеть с расписным айваном</dd></div></dl>
+          <a class="tile__map" href="./#pin=bolo-hauz">На карте</a>
+        </div>
+      </li>
+    </ul>
+    <p class="rows__empty" id="tiles-empty" hidden>Ничего не нашлось. Измените запрос.</p>
+  </div>
+</main>
+<section class="band">
+  <div class="container band__in">
+    <h2>Покажем любой дом на месте</h2>
+    <a class="btn btn--light" href="contacts.html#show">Записаться на показ</a>
+  </div>
+</section>
+<footer class="foot">
+  <div class="container foot__in">
+    <p class="foot__mark">Palm</p>
+    <ul class="foot__links"><li><a href="./">Карта</a></li><li><a href="catalog.html" aria-current=page>Объекты</a></li><li><a href="about.html">О компании</a></li><li><a href="contacts.html">Контакты</a></li><li><a href="credits.html">Авторы фото</a></li></ul>
+  </div>
+</footer>
+<script src="catalog.js"></script>
+</body>
+</html>
