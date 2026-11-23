@@ -73,8 +73,10 @@ body { letter-spacing: -0.011em; }
 .pop { animation: pop-in 0.22s var(--ease-out); }
 @keyframes pop-in { from { opacity: 0; } to { opacity: 1; } }
 .card { width: min(280px, 78vw); }
-.card__head { padding: var(--space-md) var(--space-md) 0; color: var(--color-muted); font-size: var(--text-xs); font-weight: 500; }
-.card__photo { aspect-ratio: 16 / 9; margin-top: var(--space-sm); }
+.card__head { padding: var(--space-sm) var(--space-md) 0; color: var(--color-muted); font-size: var(--text-xs); font-weight: 500; }
+.card__photo { aspect-ratio: 16 / 10; }
+.card__photo > img { object-position: 50% 35%; }
+.card__photo--empty { display: grid; place-items: center; background: var(--color-paper-3); color: var(--color-muted); font-size: var(--text-xs); }
 .card__body { display: grid; gap: var(--space-sm); padding: var(--space-2xs) var(--space-md) var(--space-sm); }
 .card__name { font-family: var(--font-display); font-weight: 600; font-size: var(--text-lg); letter-spacing: var(--tracking-display); line-height: 1.2; }
 .card dl { margin: 0; }
