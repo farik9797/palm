@@ -8,7 +8,21 @@
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const CENTER = [64.4168, 39.7742];
-  const pad = () => ({ top: 0, right: 0, bottom: 0, left: 0 });
+  // раскрытие карты по прокрутке: p = 0 — окно под заголовком, p = 1 — весь экран
+  const hero = $('hero'), copy = $('hero-copy'), stage = mapEl.parentElement;
+  const scrolly = !reduce && !!hero;
+  let p = 0, inset = { top: 0, side: 0, bot: 0 };
+  const pad = () => { const k = 1 - p; return { top: inset.top * k, right: inset.side * k, bottom: inset.bot * k, left: inset.side * k }; };
+  const range = () => stage.clientHeight * 0.85;          // сколько прокрутки занимает раскрытие
+  function measure() {
+    if (!scrolly) return;
+    const cs = getComputedStyle(hero);
+    inset = { top: copy.offsetHeight, side: 0, bot: parseFloat(cs.getPropertyValue('--bot')) || 24 };
+    hero.style.setProperty('--top', `${inset.top}px`);
+    const probe = document.createElement('div'); probe.style.cssText = 'position:absolute;visibility:hidden;width:var(--side)'; stage.append(probe);
+    inset.side = probe.offsetWidth; probe.remove();
+  }
+  if (scrolly) { document.documentElement.classList.add('js-scroll'); measure(); }
   const touch = matchMedia('(pointer: coarse)').matches;
   const flat = () => ({ center: CENTER, zoom: 13.0, pitch: 0, bearing: 0, padding: pad() });
   const tilted = () => ({ center: [64.4185, 39.7735], zoom: 14.5, pitch: 60, bearing: -24, padding: pad() });
@@ -24,7 +38,7 @@
     return `rgba(${r},${g},${b},${a})`;
   };
   const C = {
-    paper: tok('--color-paper'), sheet: tok('--color-sheet'), ink: tok('--color-ink'), ink2: tok('--color-ink-2'),
+    paper: tok('--color-land'), roadCase: tok('--color-road-case'), sheet: tok('--color-sheet'), ink: tok('--color-ink'), ink2: tok('--color-ink-2'),
     contour: tok('--color-contour'), water: tok('--color-water'), green: tok('--color-green-soft'),
     building: tok('--color-building'), clear: tok('--color-ink', 0),
   };
@@ -39,7 +53,7 @@
   // [слой, свойство прозрачности, итоговое значение] — всё стартует с 0 и проявляется после прорисовки
   const REVEAL = [
     ['green', 'fill-opacity', 0.9], ['water', 'fill-opacity', 1], ['waterway', 'line-opacity', 1],
-    ['road-case', 'line-opacity', 0.75], ['road', 'line-opacity', 1],
+    ['road-case', 'line-opacity', 1], ['road', 'line-opacity', 1],
     ['buildings', 'fill-extrusion-opacity', 0.94], ['street-names', 'text-opacity', 1], ['place-names', 'text-opacity', 1],
   ];
 
@@ -67,7 +81,7 @@
         { id: 'water', type: 'fill', source: 'omt', 'source-layer': 'water', paint: { 'fill-color': C.water, 'fill-opacity': 0 } },
         { id: 'waterway', type: 'line', source: 'omt', 'source-layer': 'waterway', paint: { 'line-color': C.water, 'line-width': w(0.6, 1.5, 4), 'line-opacity': 0 } },
         { id: 'road-case', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['==', ['geometry-type'], 'LineString'], layout: { 'line-cap': 'round', 'line-join': 'round' },
-          paint: { 'line-color': C.contour, 'line-opacity': 0, 'line-width': w2([2.4, 7, 26], [1, 3.6, 15]) } },
+          paint: { 'line-color': C.roadCase, 'line-opacity': 0, 'line-width': w2([2.4, 7, 26], [1, 3.6, 15]) } },
         { id: 'road', type: 'line', source: 'omt', 'source-layer': 'transportation', filter: ['==', ['geometry-type'], 'LineString'], layout: { 'line-cap': 'round', 'line-join': 'round' },
           paint: { 'line-color': C.sheet, 'line-opacity': 0, 'line-width': w2([1.4, 5.4, 23], [0.4, 2.4, 13]) } },
         { id: 'buildings', type: 'fill-extrusion', source: 'omt', 'source-layer': 'building', minzoom: 13,
@@ -85,7 +99,7 @@
   window.palmMap = map;
 
   /* ---------- метки и карточки ---------- */
-  const popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: 34, maxWidth: 'none', className: 'pop' });
+  let popup = null;
   let pinned = null;
 
   const card = (row) => {
@@ -131,18 +145,22 @@
 
   function open(pin) {
     pins.forEach((p) => { p.b.classList.toggle('is-open', p === pin); p.row.classList.toggle('is-hot', p === pin); });
-    popup.setLngLat(pin.lngLat).setDOMContent(card(pin.row)).addTo(map);
+    popup?.remove();
+    const below = map.project(pin.lngLat).y - pad().top < 260;      // у верхнего края окна карточка открывается вниз
+    popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, anchor: below ? 'top' : 'bottom', offset: below ? 12 : 34, maxWidth: 'none', className: 'pop' })
+      .setLngLat(pin.lngLat).setDOMContent(card(pin.row)).addTo(map);
   }
   function close() {
     pins.forEach((p) => { p.b.classList.remove('is-open'); p.row.classList.remove('is-hot'); });
-    popup.remove();
+    popup?.remove();
     if (pinned) open(pinned);
   }
   function goTo(pin) {
     finish();
-    $('top').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' });
+    if (scrolly) window.scrollTo({ top: hero.offsetTop + range() + 4, behavior: 'smooth' });   // карта на весь экран
+    else hero.scrollIntoView();
     pinned = pin;
-    map.flyTo({ center: pin.lngLat, padding: pad(), zoom: 16.4, pitch: 60, bearing: map.getBearing() + 30, duration: reduce ? 0 : 2200, essential: true });
+    map.flyTo({ center: pin.lngLat, padding: scrolly ? { top: 0, right: 0, bottom: 0, left: 0 } : pad(), zoom: 16.4, pitch: 60, bearing: map.getBearing() + 30, duration: reduce ? 0 : 2200, essential: true });
     open(pin);
   }
   map.on('click', () => { pinned = null; close(); });
@@ -277,8 +295,26 @@
         rise(2600);
       }, total + 700);
       later(() => { removeSketch(); landPins(true); }, total + 3300);
-      later(() => { state = 'done'; interactive(true); $('replay').hidden = false; }, total + 4100);
+      later(() => { state = 'done'; interactive(true); $('replay').hidden = false; map.setPadding(pad()); }, total + 4100);
     });
+  }
+
+  /* ---------- прокрутка: заголовок уходит, карта раскрывается ---------- */
+  let ticking = false;
+  function onScroll() {
+    ticking = false;
+    const next = Math.min(1, Math.max(0, (window.scrollY - hero.offsetTop) / range()));
+    if (next === p) return;
+    p = next;
+    hero.style.setProperty('--p', p.toFixed(4));
+    copy.classList.toggle('is-gone', p > 0.42);
+    if (state === 'done' && !map.isMoving()) map.setPadding(pad());
+  }
+  if (scrolly) {
+    addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(onScroll); } }, { passive: true });
+    addEventListener('resize', () => { measure(); if (state === 'done') map.setPadding(pad()); });
+    document.fonts?.ready.then(() => { measure(); onScroll(); });
+    onScroll();
   }
 
   map.on('load', () => (reduce ? finish() : play()));
