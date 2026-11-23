@@ -16,7 +16,7 @@
   --color-scrim: rgb(255 255 255 / 0.94); --color-scrim-mid: rgb(255 255 255 / 0.8); --color-scrim-0: rgb(255 255 255 / 0);
   --color-glass: rgb(255 255 255 / 0.78); --color-fill: rgb(118 118 128 / 0.12); --color-fill-hover: rgb(118 118 128 / 0.2);
   /* карта */
-  --color-land: #f1f1f4; --color-sheet: #ffffff; --color-road-case: #dcdce2; --color-building: #e6e6ec; --color-building-hi: #c4c4d0;
+  --color-land: #f1f1f4; --color-sheet: #ffffff; --color-road-case: #dcdce2; --color-building: #dedee6;
   --color-contour: #a1a1a6; --color-water: #a9d3f2; --color-green-soft: #d6ecd0;
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
