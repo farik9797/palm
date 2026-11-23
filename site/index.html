@@ -54,66 +54,78 @@
 
     <!-- Источник данных для меток: одна строка = одна метка. Координаты — data-lng / data-lat. -->
     <ul class="rows" id="rows">
-      <li class="row" data-pin data-kind="object" data-lng="64.4222" data-lat="39.7692">
+      <li class="row" data-slug="obekt-1" data-pin data-kind="object" data-lng="64.4222" data-lat="39.7692">
         <span class="row__kind">Объект</span>
-        <h3><button type="button" class="row__go">Демо-объект 1</button></h3>
+        <h3><a class="row__go" href="objects/obekt-1.html">Демо-объект 1</a></h3>
         <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
-      <li class="row" data-pin data-kind="object" data-lng="64.4302" data-lat="39.7724">
+      <li class="row" data-slug="obekt-2" data-pin data-kind="object" data-lng="64.4302" data-lat="39.7724">
         <span class="row__kind">Объект</span>
-        <h3><button type="button" class="row__go">Демо-объект 2</button></h3>
+        <h3><a class="row__go" href="objects/obekt-2.html">Демо-объект 2</a></h3>
         <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
-      <li class="row" data-pin data-kind="object" data-lng="64.4262" data-lat="39.7660">
+      <li class="row" data-slug="obekt-3" data-pin data-kind="object" data-lng="64.4262" data-lat="39.7660">
         <span class="row__kind">Объект</span>
-        <h3><button type="button" class="row__go">Демо-объект 3</button></h3>
+        <h3><a class="row__go" href="objects/obekt-3.html">Демо-объект 3</a></h3>
         <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
-      <li class="row" data-pin data-kind="object" data-lng="64.4212" data-lat="39.7832">
+      <li class="row" data-slug="obekt-4" data-pin data-kind="object" data-lng="64.4212" data-lat="39.7832">
         <span class="row__kind">Объект</span>
-        <h3><button type="button" class="row__go">Демо-объект 4</button></h3>
+        <h3><a class="row__go" href="objects/obekt-4.html">Демо-объект 4</a></h3>
         <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
 
-      <li class="row" data-pin data-kind="landmark" data-lng="64.4108" data-lat="39.7778" data-photo="img/ark.jpg">
+      <li class="row" data-slug="ark" data-pin data-kind="landmark" data-lng="64.4108" data-lat="39.7778" data-photo="img/ark.jpg">
         <span class="row__kind">Ориентир</span>
-        <h3><button type="button" class="row__go">Крепость Арк</button></h3>
+        <h3><a class="row__go" href="objects/ark.html">Крепость Арк</a></h3>
         <dl><div><dt>Что это</dt><dd>цитадель, резиденция бухарских эмиров</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
-      <li class="row" data-pin data-kind="landmark" data-lng="64.4150" data-lat="39.7759" data-photo="img/kalyan.jpg">
+      <li class="row" data-slug="kalyan" data-pin data-kind="landmark" data-lng="64.4150" data-lat="39.7759" data-photo="img/kalyan.jpg">
         <span class="row__kind">Ориентир</span>
-        <h3><button type="button" class="row__go">Минарет Калян</button></h3>
+        <h3><a class="row__go" href="objects/kalyan.html">Минарет Калян</a></h3>
         <dl><div><dt>Построен</dt><dd class="num">1127 год</dd></div><div><dt>Что это</dt><dd>главный минарет города</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
-      <li class="row" data-pin data-kind="landmark" data-lng="64.4159" data-lat="39.7757" data-photo="img/miri-arab.jpg">
+      <li class="row" data-slug="miri-arab" data-pin data-kind="landmark" data-lng="64.4159" data-lat="39.7757" data-photo="img/miri-arab.jpg">
         <span class="row__kind">Ориентир</span>
-        <h3><button type="button" class="row__go">Медресе Мири-Араб</button></h3>
+        <h3><a class="row__go" href="objects/miri-arab.html">Медресе Мири-Араб</a></h3>
         <dl><div><dt>Построено</dt><dd class="num">1530-е годы</dd></div><div><dt>Что это</dt><dd>действующее медресе</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
-      <li class="row" data-pin data-kind="landmark" data-lng="64.4165" data-lat="39.7745" data-photo="img/ulugbek.jpg">
+      <li class="row" data-slug="ulugbek" data-pin data-kind="landmark" data-lng="64.4165" data-lat="39.7745" data-photo="img/ulugbek.jpg">
         <span class="row__kind">Ориентир</span>
-        <h3><button type="button" class="row__go">Медресе Улугбека</button></h3>
+        <h3><a class="row__go" href="objects/ulugbek.html">Медресе Улугбека</a></h3>
         <dl><div><dt>Построено</dt><dd class="num">1417 год</dd></div><div><dt>Что это</dt><dd>медресе эпохи Тимуридов</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
-      <li class="row" data-pin data-kind="landmark" data-lng="64.4203" data-lat="39.7731" data-photo="img/lyabi-hauz.jpg">
+      <li class="row" data-slug="lyabi-hauz" data-pin data-kind="landmark" data-lng="64.4203" data-lat="39.7731" data-photo="img/lyabi-hauz.jpg">
         <span class="row__kind">Ориентир</span>
-        <h3><button type="button" class="row__go">Ляби-Хауз</button></h3>
+        <h3><a class="row__go" href="objects/lyabi-hauz.html">Ляби-Хауз</a></h3>
         <dl><div><dt>Построен</dt><dd class="num">1620 год</dd></div><div><dt>Что это</dt><dd>площадь у водоёма</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
-      <li class="row" data-pin data-kind="landmark" data-lng="64.4273" data-lat="39.7747" data-photo="img/chor-minor.jpg">
+      <li class="row" data-slug="chor-minor" data-pin data-kind="landmark" data-lng="64.4273" data-lat="39.7747" data-photo="img/chor-minor.jpg">
         <span class="row__kind">Ориентир</span>
-        <h3><button type="button" class="row__go">Чор-Минор</button></h3>
+        <h3><a class="row__go" href="objects/chor-minor.html">Чор-Минор</a></h3>
         <dl><div><dt>Построен</dt><dd class="num">1807 год</dd></div><div><dt>Что это</dt><dd>медресе с четырьмя башнями</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
-      <li class="row" data-pin data-kind="landmark" data-lng="64.4004" data-lat="39.7770" data-photo="img/samanid.jpg">
+      <li class="row" data-slug="samanid" data-pin data-kind="landmark" data-lng="64.4004" data-lat="39.7770" data-photo="img/samanid.jpg">
         <span class="row__kind">Ориентир</span>
-        <h3><button type="button" class="row__go">Мавзолей Саманидов</button></h3>
+        <h3><a class="row__go" href="objects/samanid.html">Мавзолей Саманидов</a></h3>
         <dl><div><dt>Построен</dt><dd>рубеж IX и X веков</dd></div><div><dt>Что это</dt><dd>усыпальница династии Саманидов</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
-      <li class="row" data-pin data-kind="landmark" data-lng="64.4087" data-lat="39.7776" data-photo="img/bolo-hauz.jpg">
+      <li class="row" data-slug="bolo-hauz" data-pin data-kind="landmark" data-lng="64.4087" data-lat="39.7776" data-photo="img/bolo-hauz.jpg">
         <span class="row__kind">Ориентир</span>
-        <h3><button type="button" class="row__go">Мечеть Боло-Хауз</button></h3>
+        <h3><a class="row__go" href="objects/bolo-hauz.html">Мечеть Боло-Хауз</a></h3>
         <dl><div><dt>Построена</dt><dd class="num">1712 год</dd></div><div><dt>Что это</dt><dd>мечеть с расписным айваном</dd></div></dl>
+        <button type="button" class="row__map">На карте</button>
       </li>
     </ul>
     <p class="rows__empty" id="rows-empty" hidden>Ничего не нашлось. Измените запрос.</p>
