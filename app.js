@@ -207,7 +207,7 @@
   kindBs.forEach((btn) => btn.addEventListener('click', () => {
     kind = btn.dataset.filter;
     kindBs.forEach((x) => x.setAttribute('aria-pressed', String(x === btn)));
-    applyFilter();
+    applyFilter(); window.srReplay?.(rows);
   }));
 
   /* ---------- города: переключатели в шапке карты, у списка и карточки городов ---------- */
@@ -215,7 +215,7 @@
     if (!CITIES[next]) return;
     document.querySelectorAll('[data-city]').forEach((x) => x.matches('.seg__b') && x.setAttribute('aria-pressed', String(x.dataset.city === next)));
     if (next === city) return;
-    city = next; applyFilter();
+    city = next; applyFilter(); window.srReplay?.(rows);
     finish(); pinned = null; close();
     map.setMaxBounds(null);
     const go = () => { map.jumpTo(tilted()); map.setMaxBounds(C0().bounds); mapEl.classList.remove('is-switching'); };

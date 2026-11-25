@@ -13,9 +13,10 @@
     });
     empty.hidden = shown > 0;
   };
+  const replay = () => window.srReplay?.(tiles);
   const group = (sel, set) => {
     const bs = [...document.querySelectorAll(sel)];
-    bs.forEach((b) => b.addEventListener('click', () => { set(b); bs.forEach((x) => x.setAttribute('aria-pressed', x === b)); apply(); }));
+    bs.forEach((b) => b.addEventListener('click', () => { set(b); bs.forEach((x) => x.setAttribute('aria-pressed', x === b)); apply(); replay(); }));
   };
   group('.seg__b[data-filter]', (b) => { kind = b.dataset.filter; });
   group('.seg__b[data-city]', (b) => { city = b.dataset.city; });
