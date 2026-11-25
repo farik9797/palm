@@ -9,22 +9,22 @@
   --color-error: oklch(52% 0.19 27); --color-success: oklch(50% 0.12 150);
   --container: 1200px; --gutter: 40px; --gap-columns: 32px; --section-gap-s: 120px; --section-gap: 144px; --section-gap-l: 176px;
   --z-base: 1; --z-raised: 10; --z-dropdown: 100; --z-sticky: 200; --z-sticky-nav: 300; --z-modal: 400; --z-toast: 500; --z-tooltip: 600;
-  --color-paper: #ffffff; --color-paper-2: #ffffff; --color-paper-3: #f5f5f7;
-  --color-ink: #1d1d1f; --color-ink-2: #424245; --color-muted: #6e6e73; --color-rule: #d2d2d7;
-  --color-accent: #0071e3; --color-accent-hover: #0077ed; --color-accent-ink: #ffffff; --color-focus: #0071e3;
-  --color-dark: #1d1d1f; --color-dark-ink: #f5f5f7; --color-dark-muted: #a1a1a6; --color-dark-rule: #424245;
-  --color-scrim: rgb(255 255 255 / 0.94); --color-scrim-mid: rgb(255 255 255 / 0.8); --color-scrim-0: rgb(255 255 255 / 0);
-  --color-glass: rgb(255 255 255 / 0.78); --color-fill: rgb(118 118 128 / 0.12); --color-fill-hover: rgb(118 118 128 / 0.2);
-  /* тёплые поверхности: глина стен Хивы и лазурит изразцов */
+  --color-paper: #fdfbf7; --color-paper-2: #fdfbf7; --color-paper-3: #f6f1e9;
+  --color-ink: #1f1b16; --color-ink-2: #4a4239; --color-muted: #6f665a; --color-rule: #e3dbcd;
+  --color-accent: #0b6b6b; --color-accent-hover: #08595a; --color-accent-ink: #ffffff; --color-focus: #0b6b6b;
+  --color-dark: #13243b; --color-dark-ink: #f6f1e9; --color-dark-muted: #b4bfcf; --color-dark-rule: #2d4466;
+  --color-scrim: rgb(253 251 247 / 0.94); --color-scrim-mid: rgb(253 251 247 / 0.8); --color-scrim-0: rgb(253 251 247 / 0);
+  --color-glass: rgb(253 251 247 / 0.8); --color-fill: rgb(120 98 66 / 0.1); --color-fill-hover: rgb(120 98 66 / 0.17);
+  /* палитра: известняк и глина (поверхности), бирюза куполов (действие), лазурит изразцов (тёмные блоки) */
   --color-sand: #f6f1e9; --color-sand-2: #ede5d8; --color-sand-rule: #e0d5c4; --color-sand-ink: #6b5b47;
   --color-lapis: #13243b; --color-lapis-2: #1b3150; --color-lapis-ink: #f6f1e9; --color-lapis-muted: #b4bfcf; --color-lapis-rule: #2d4466;
   /* карта */
-  --color-land: #f1f1f4; --color-sheet: #ffffff; --color-road-case: #dcdce2; --color-building: #dedee6;
-  --color-contour: #a1a1a6; --color-water: #a9d3f2; --color-green-soft: #d6ecd0;
+  --color-land: #f3eee5; --color-sheet: #fffdf9; --color-road-case: #e0d6c6; --color-building: #e6ddcf;
+  --color-contour: #a99d8b; --color-water: #9fd1d1; --color-green-soft: #dce6c8;
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
   --radius-card: 16px; --radius-entry: 18px; --radius-stage: 28px; --radius-pill: 980px; --rule-hair: 1px;
-  --shadow-card: 0 2px 8px rgb(0 0 0 / 0.12);
-  --shadow-lift: 0 12px 40px rgb(0 0 0 / 0.18), 0 2px 6px rgb(0 0 0 / 0.08);
+  --shadow-card: 0 2px 8px rgb(50 38 20 / 0.14);
+  --shadow-lift: 0 12px 40px rgb(50 38 20 / 0.18), 0 2px 6px rgb(50 38 20 / 0.08);
   --tracking-display: -0.022em; --display-weight: 600;
 }
