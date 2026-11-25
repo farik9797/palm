@@ -92,6 +92,7 @@ def shell(t, path, title, body, scripts="", head="", desc="", robots=""):
   </div>
 </footer>
 <script>window.SR = {{ lang: "{t['lang']}", more: "{t['more']}", noPhoto: "{t['no_photo']}", asset: "{asset}" }};</script>
+<script src="{asset}motion.js"></script>
 {scripts}</body>
 </html>
 """
