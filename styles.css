@@ -1,4 +1,4 @@
-/* Palm · 3D-карта Бухары. Оформление в духе Apple: системный шрифт, воздух, скруглённые поверхности, один синий акцент.
+/* Silk Road · 3D-карта Бухары, Самарканда и Хивы. Оформление в духе Apple: системный шрифт, воздух, скруглённые поверхности, один синий акцент.
    Все цвета и шрифты — токены из tokens.css. */
 @import url("./tokens.css");
 @import url("./base.css");
@@ -103,7 +103,7 @@ a.card__name:hover { color: var(--color-accent); }
 .row__map { min-height: 36px; padding: 0 var(--space-md); border: 0; border-radius: var(--radius-pill); background: var(--color-fill); color: var(--color-ink); font-size: var(--text-sm); font-weight: 500; cursor: pointer; white-space: nowrap; transition: background-color 0.2s var(--ease-out); }
 .row__map:hover { background: var(--color-fill-hover); }
 .row__go:hover, .row.is-hot .row__go { color: var(--color-accent); }
-.row dl { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-md); margin: 0; }
+.row dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: var(--space-md); margin: 0; }
 .row dt { color: var(--color-muted); font-size: var(--text-xs); }
 .row dd { margin: 0; font-size: var(--text-sm); }
 .num { font-variant-numeric: tabular-nums; }
@@ -206,10 +206,6 @@ a.card__name:hover { color: var(--color-accent); }
 .stats dd { margin: 0; font-size: var(--text-xl); font-weight: 600; }
 .how { margin-top: var(--section-gap-s); }
 .how h2 { font-size: var(--text-2xl); }
-.how__steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-lg); margin: var(--space-xl) 0 var(--space-xl); padding: 0; list-style: none; counter-reset: step; }
-.how__steps li { display: grid; align-content: start; gap: var(--space-xs); padding: var(--space-lg); border-radius: var(--radius-card); background: var(--color-paper-3); counter-increment: step; }
-.how__steps li::before { content: counter(step); color: var(--color-accent); font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 600; }
-.how__steps p { color: var(--color-ink-2); }
 
 /* контакты */
 .contacts { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; gap: var(--space-2xl); }
@@ -224,16 +220,51 @@ a.card__name:hover { color: var(--color-accent); }
 .cmap { height: 420px; margin-top: var(--space-2xl); border-radius: var(--radius-stage); overflow: hidden; background: var(--color-land); }
 .cmap__note { margin-top: var(--space-sm); color: var(--color-muted); font-size: var(--text-sm); }
 
+/* язык, слоган */
+.nav__lang { display: inline-flex; align-items: center; min-height: 36px; padding: 0 var(--space-sm); border-radius: var(--radius-pill); color: var(--color-muted); font-size: var(--text-sm); font-weight: 600; text-decoration: none; transition: color 0.2s var(--ease-out), background-color 0.2s var(--ease-out); }
+.nav__lang:hover { color: var(--color-ink); background: var(--color-fill); }
+.hero__eyebrow { color: var(--color-accent); font-size: var(--text-sm); font-weight: 600; }
+.foot__mark span { margin-inline-start: var(--space-xs); color: var(--color-muted); font-size: var(--text-xs); font-weight: 400; }
+.band__line { color: var(--color-dark-muted); }
+.hero__map { transition: opacity 0.26s var(--ease-out); }
+.hero__map.is-switching { opacity: 0; }
+
+/* секции главной */
+.sec { padding-block: var(--section-gap-s); }
+.sec--grey { background: var(--color-paper-3); }
+.sec h2 { margin-bottom: var(--space-xl); }
+.cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-lg); margin: 0; padding: 0; list-style: none; }
+.cards li { display: grid; align-content: start; gap: var(--space-xs); padding: var(--space-lg); border-radius: var(--radius-card); background: var(--color-paper-3); }
+.cards p, .steps p, .city p { color: var(--color-ink-2); }
+.steps { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--space-lg); margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.steps li { display: grid; align-content: start; gap: var(--space-xs); padding-top: var(--space-md); border-top: 2px solid var(--color-accent); counter-increment: step; }
+.steps li::before { content: counter(step); color: var(--color-accent); font-family: var(--font-display); font-size: var(--text-2xl); font-weight: 600; line-height: 1; }
+.how .steps { margin-top: var(--space-xl); }
+.cities { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-lg); margin: 0; padding: 0; list-style: none; }
+.city { display: grid; align-content: start; gap: var(--space-sm); }
+.city__go { display: grid; gap: var(--space-sm); padding: 0; border: 0; background: none; color: inherit; text-align: left; cursor: pointer; }
+.city__photo { display: block; aspect-ratio: 4 / 3; border-radius: var(--radius-card); }
+.city__photo > img { transition: transform 0.5s var(--ease-out); }
+.city__go:hover .city__photo > img { transform: scale(1.04); }
+.city__name { font-family: var(--font-display); font-size: var(--text-title); font-weight: 600; letter-spacing: var(--tracking-display); }
+.city__go:hover .city__name { color: var(--color-accent); }
+.city__go:focus-visible { outline-offset: 4px; border-radius: var(--radius-card); }
+.js-scroll .hero__copy .seg { pointer-events: auto; background: var(--color-glass); -webkit-backdrop-filter: blur(20px); backdrop-filter: blur(20px); }
+.index__head .page__tools { justify-content: flex-end; }
+
 @media (max-width: 60rem) {
   .row { grid-template-columns: minmax(0, 1fr); gap: var(--space-2xs); padding-block: var(--space-md); }
   .row__map { justify-self: start; margin-top: var(--space-xs); }
   .obj__in { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
   .nav__links { display: none; }
+  .nav__lang { margin-inline-start: auto; }
+  .nav__menu { margin-inline-start: 0; }
+  .cards, .cities { grid-template-columns: minmax(0, 1fr); }
+  .steps { grid-template-columns: minmax(0, 1fr); }
   .nav__menu { display: block; }
   .about, .contacts { grid-template-columns: minmax(0, 1fr); gap: var(--space-xl); }
   .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .how__steps { grid-template-columns: minmax(0, 1fr); }
-}
+  }
 @media (max-width: 48rem) {
   .nav__in { gap: var(--space-sm); }
   .nav .btn { display: none; }
