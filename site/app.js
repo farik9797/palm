@@ -169,7 +169,7 @@
     // карточка открывается туда, где больше места: вверх от метки или вниз
     const y = map.project(pin.lngLat).y, above = y - pad().top, under = mapEl.clientHeight - y, CARD = 360;
     const below = above < CARD && under > above;
-    popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, anchor: below ? 'top' : 'bottom', offset: below ? 12 : 34, maxWidth: 'none', className: 'pop' })
+    popup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, focusAfterOpen: false, anchor: below ? 'top' : 'bottom', offset: below ? 12 : 34, maxWidth: 'none', className: 'pop' })
       .setLngLat(pin.lngLat).setDOMContent(card(pin.row)).addTo(map);
     const el = popup.getElement();
     el.addEventListener('mouseenter', () => clearTimeout(closeTimer));
