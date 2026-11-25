@@ -271,7 +271,7 @@ a.card__name:hover { color: var(--color-accent); }
 
 /* призыв: фото Регистана под лазуритовой вуалью */
 .band { position: relative; isolation: isolate; overflow: hidden; background: var(--color-lapis); color: var(--color-lapis-ink); }
-.band::before { content: ""; position: absolute; inset: 0; z-index: -2; background: var(--band-photo) center 40% / cover no-repeat; filter: saturate(0.85); }
+.band::before { content: ""; position: absolute; inset: 0; z-index: -2; background: url("img/registan-3.jpg") center 40% / cover no-repeat; filter: saturate(0.85); }
 .band::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(19 36 59 / 0.72), rgb(19 36 59 / 0.9)); }
 .band__in { display: grid; justify-items: center; gap: var(--space-lg); padding-block: var(--section-gap); text-align: center; }
 .band h2 { max-width: 18ch; }

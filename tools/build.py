@@ -98,7 +98,7 @@ def shell(t, path, title, body, scripts="", head="", desc="", robots=""):
 
 
 def band(t, home, asset):
-    return f"""<section class="band" style="--band-photo: url('{asset}img/registan-3.jpg')">
+    return f"""<section class="band">
   <div class="container band__in">
     <h2>{e(t['band_h'])}</h2>
     <p class="band__line">Silk Road — {t['brand_line']}.</p>
