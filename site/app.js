@@ -1,5 +1,5 @@
-/* Palm · 3D-карта Бухары: прорисовка улиц → подъём зданий → метки с карточками.
-   Метки читаются из разметки (#rows [data-pin]) — правьте список в index.html. */
+/* Silk Road · 3D-карта: прорисовка улиц → подъём зданий → метки с карточками. Три города, переключатель.
+   Метки читаются из разметки (#rows [data-pin]); сама разметка собирается из tools/content.py. */
 (() => {
   const mapEl = document.getElementById('map');
   const rows = [...document.querySelectorAll('[data-pin]')];
@@ -7,7 +7,10 @@
   if (!mapEl || !window.maplibregl) return;
 
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const CENTER = [64.4168, 39.7742];
+  const SR = window.SR || {}, CITIES = window.SR_CITIES;
+  const RU = SR.lang === 'ru';
+  let city = 'bukhara';
+  const C0 = () => CITIES[city];
   // карта на весь экран, текст поверх: p = 0 — текст виден, p = 1 — текст ушёл
   const hero = $('hero'), copy = $('hero-copy'), stage = mapEl.parentElement;
   const scrolly = !reduce && !!hero;
@@ -21,8 +24,8 @@
   }
   if (scrolly) { document.documentElement.classList.add('js-scroll'); measure(); }
   const touch = matchMedia('(pointer: coarse)').matches;
-  const flat = () => ({ center: CENTER, zoom: 13.0, pitch: 0, bearing: 0, padding: pad() });
-  const tilted = () => ({ center: [64.4185, 39.7735], zoom: 14.5, pitch: 60, bearing: -24, padding: pad() });
+  const flat = () => ({ center: C0().flat, zoom: C0().zoom - 1.5, pitch: 0, bearing: 0, padding: pad() });
+  const tilted = () => ({ center: C0().tilt, zoom: C0().zoom, pitch: 60, bearing: -24, padding: pad() });
   const RINGS = 12;
 
   // токены CSS → rgba для MapLibre (oklch он не понимает)
@@ -41,7 +44,7 @@
   };
 
   const MAJOR = ['motorway', 'trunk', 'primary', 'secondary', 'tertiary'];
-  const NAME = ['coalesce', ['get', 'name:ru'], ['get', 'name']];
+  const NAME = ['coalesce', ['get', RU ? 'name:ru' : 'name:en'], ['get', 'name:latin'], ['get', 'name']];
   const HEIGHT = ['coalesce', ['get', 'render_height'], 5];
   const w = (a, b, c) => ['interpolate', ['exponential', 1.6], ['zoom'], 12, a, 15, b, 18, c];
   const isMajor = ['in', ['get', 'class'], ['literal', MAJOR]];
@@ -58,13 +61,13 @@
     container: mapEl,
     ...(reduce ? tilted() : flat()),
     minZoom: 12, maxZoom: 18.5, maxPitch: 70,
-    maxBounds: [[64.30, 39.70], [64.53, 39.85]],
+    maxBounds: C0().bounds,
     scrollZoom: false,              // колесо всегда прокручивает страницу; масштаб — кнопками, двойным кликом, щипком
     cooperativeGestures: touch,     // на телефоне один палец листает страницу, два двигают карту
     locale: {
-      'CooperativeGesturesHandler.WindowsHelpText': 'Чтобы приблизить карту, прокручивайте с зажатым Ctrl',
-      'CooperativeGesturesHandler.MacHelpText': 'Чтобы приблизить карту, прокручивайте с зажатым ⌘',
-      'CooperativeGesturesHandler.MobileHelpText': 'Двигайте карту двумя пальцами',
+      'CooperativeGesturesHandler.WindowsHelpText': RU ? 'Чтобы приблизить карту, прокручивайте с зажатым Ctrl' : 'Use Ctrl + scroll to zoom the map',
+      'CooperativeGesturesHandler.MacHelpText': RU ? 'Чтобы приблизить карту, прокручивайте с зажатым ⌘' : 'Use ⌘ + scroll to zoom the map',
+      'CooperativeGesturesHandler.MobileHelpText': RU ? 'Двигайте карту двумя пальцами' : 'Use two fingers to move the map',
     },
     attributionControl: { compact: true },
     style: {
@@ -109,7 +112,7 @@
       ph.dataset.slot = 'card';
       const im = new Image(); im.src = row.dataset.photo; im.alt = row.querySelector('h3').textContent.trim(); im.onerror = () => ph.remove();
       ph.append(im);
-    } else { ph.classList.add('card__photo--empty'); ph.textContent = 'Здесь будет фото объекта'; }
+    } else { ph.classList.add('card__photo--empty'); ph.textContent = SR.noPhoto; }
     el.append(ph, head);
     const body = document.createElement('div'); body.className = 'card__body';
     const href = row.querySelector('a.row__go')?.getAttribute('href');
@@ -117,7 +120,7 @@
     body.append(name, row.querySelector('dl').cloneNode(true));
     if (href) {                                              // название и «Подробнее» ведут на страницу объекта
       name.href = href;
-      const more = document.createElement('a'); more.className = 'card__more'; more.href = href; more.textContent = 'Подробнее';
+      const more = document.createElement('a'); more.className = 'card__more'; more.href = href; more.textContent = SR.more;
       body.append(more);
     }
     el.append(body);
@@ -135,7 +138,7 @@
     inner.append(tag, mark); b.append(inner);
     new maplibregl.Marker({ element: b, anchor: 'bottom' }).setLngLat(lngLat).addTo(map);
     b.setAttribute('aria-label', name);   // MapLibre ставит своё «Map marker»
-    const pin = { row, b, lngLat, kind: row.dataset.kind, text: (name + ' ' + row.querySelector('dl').textContent).toLowerCase() };
+    const pin = { row, b, lngLat, kind: row.dataset.kind, city: row.dataset.city, text: (name + ' ' + row.querySelector('dl').textContent).toLowerCase() };
 
     b.addEventListener('mouseenter', () => open(pin));
     b.addEventListener('mouseleave', () => { if (pinned !== pin) closeSoon(); });
@@ -180,6 +183,7 @@
   }
   function goTo(pin) {
     finish();
+    if (pin.city !== city) setCity(pin.city, true);
     if (scrolly) window.scrollTo({ top: hero.offsetTop + range() + 4, behavior: 'smooth' });   // карта на весь экран
     else hero.scrollIntoView();
     pinned = pin;
@@ -193,17 +197,38 @@
   function applyFilter() {
     let shown = 0;
     pins.forEach((p) => {
-      const ok = (kind === 'all' || p.kind === kind) && (!query || p.text.includes(query));
+      const ok = (kind === 'all' || p.kind === kind) && p.city === city && (!query || p.text.includes(query));
       p.row.hidden = !ok; p.b.classList.toggle('is-off', !ok); if (ok) shown++;
     });
     $('rows-empty').hidden = shown > 0;
     if (pinned && pinned.row.hidden) { pinned = null; close(); }
   }
-  document.querySelectorAll('.seg__b').forEach((btn) => btn.addEventListener('click', () => {
+  const kindBs = [...document.querySelectorAll('.seg__b[data-filter]')];
+  kindBs.forEach((btn) => btn.addEventListener('click', () => {
     kind = btn.dataset.filter;
-    document.querySelectorAll('.seg__b').forEach((x) => x.setAttribute('aria-pressed', String(x === btn)));
+    kindBs.forEach((x) => x.setAttribute('aria-pressed', String(x === btn)));
     applyFilter();
   }));
+
+  /* ---------- города: переключатели в шапке карты, у списка и карточки городов ---------- */
+  function setCity(next, instant) {
+    if (!CITIES[next]) return;
+    document.querySelectorAll('[data-city]').forEach((x) => x.matches('.seg__b') && x.setAttribute('aria-pressed', String(x.dataset.city === next)));
+    if (next === city) return;
+    city = next; applyFilter();
+    finish(); pinned = null; close();
+    map.setMaxBounds(null);
+    const go = () => { map.jumpTo(tilted()); map.setMaxBounds(C0().bounds); mapEl.classList.remove('is-switching'); };
+    if (instant || reduce) return go();
+    mapEl.classList.add('is-switching');
+    setTimeout(go, 260);
+  }
+  document.querySelectorAll('.seg__b[data-city]').forEach((b) => b.addEventListener('click', () => setCity(b.dataset.city)));
+  document.querySelectorAll('.city__go').forEach((b) => b.addEventListener('click', () => {
+    setCity(b.dataset.city, true);
+    window.scrollTo({ top: hero.offsetTop + (scrolly ? range() + 4 : 0), behavior: reduce ? 'auto' : 'smooth' });
+  }));
+  applyFilter();
   $('q').addEventListener('input', (e) => { query = e.target.value.trim().toLowerCase(); applyFilter(); });
   $('search').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -220,7 +245,8 @@
 
   function buildSketch() {
     const seen = new Set(), feats = [];
-    const d2 = (p) => { const dx = (p[0] - CENTER[0]) * 0.77, dy = p[1] - CENTER[1]; return dx * dx + dy * dy; };
+    const [cx0, cy0] = C0().flat, kx = Math.cos(cy0 * Math.PI / 180);
+    const d2 = (p) => { const dx = (p[0] - cx0) * kx, dy = p[1] - cy0; return dx * dx + dy * dy; };
     for (const f of map.querySourceFeatures('omt', { sourceLayer: 'transportation' })) {
       const g = f.geometry;
       const lines = g.type === 'LineString' ? [g.coordinates] : g.type === 'MultiLineString' ? g.coordinates : [];

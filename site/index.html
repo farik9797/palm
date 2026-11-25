@@ -1,10 +1,11 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Palm: новостройки Бухары на 3D-карте</title>
-<meta name="description" content="Интерактивная 3D-карта Бухары: объекты и городские ориентиры. Наведите на метку, чтобы увидеть сведения о доме.">
+<title>Silk Road: hotel property in Bukhara, Samarkand and Khiva</title>
+<meta name="description" content="Silk Road helps foreign investors buy old houses and land plots near historic monuments of Uzbekistan and build hotels on a turnkey basis.">
+<link rel="alternate" hreflang="ru" href="ru/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -12,162 +13,224 @@
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
 <header class="nav">
   <div class="container nav__in">
-    <a class="nav__mark" href="#top">Palm</a>
-    <form class="nav__search" role="search" id="search">
-      <label class="visually-hidden" for="q">Поиск по карте</label>
-      <input id="q" type="search" placeholder="Найти дом или ориентир" autocomplete="off">
-    </form>
-    <ul class="nav__links"><li><a href="catalog.html">Объекты</a></li><li><a href="about.html">О компании</a></li><li><a href="contacts.html">Контакты</a></li></ul>
-    <details class="nav__menu"><summary>Меню</summary><ul><li><a href="catalog.html">Объекты</a></li><li><a href="about.html">О компании</a></li><li><a href="contacts.html">Контакты</a></li></ul></details>
-    <a class="btn btn--primary" href="contacts.html#show">Записаться на показ</a>
+    <a class="nav__mark" href="./">Silk Road</a>
+    <ul class="nav__links"><li><a href="./">Map</a></li><li><a href="catalog.html">Properties</a></li><li><a href="#services">Services</a></li><li><a href="about.html">About</a></li><li><a href="contacts.html">Contact</a></li></ul>
+    <a class="nav__lang" href="ru/" hreflang="ru" lang="ru" aria-label="Русский">RU</a>
+    <details class="nav__menu"><summary>Menu</summary><ul><li><a href="./">Map</a></li><li><a href="catalog.html">Properties</a></li><li><a href="#services">Services</a></li><li><a href="about.html">About</a></li><li><a href="contacts.html">Contact</a></li></ul></details>
+    <a class="btn btn--primary" href="contacts.html#form">Discuss a project</a>
   </div>
 </header>
-
 <main id="top">
-
 <section class="hero" id="hero" aria-labelledby="h-hero">
   <div class="hero__stage">
     <div class="hero__copy" id="hero-copy">
-      <h1 id="h-hero">Новостройки Бухары на живой карте</h1>
-      <p class="lead">Выберите метку, и откроется карточка дома.</p>
+      <p class="hero__eyebrow">Silk Road — Your Trusted Partner in Uzbekistan</p>
+      <h1 id="h-hero">Hotel property in the old cities of Uzbekistan</h1>
+      <p class="lead">We find old houses and plots next to the monuments of Bukhara, Samarkand and Khiva, close the deal and build your hotel turnkey.</p>
       <div class="hero__actions">
-        <a class="btn btn--primary" href="#index">Смотреть объекты</a>
+        <div class="seg" role="group" aria-label="City"><button type="button" class="seg__b city-b" data-city="bukhara" aria-pressed="true">Bukhara</button><button type="button" class="seg__b city-b" data-city="samarkand" aria-pressed="false">Samarkand</button><button type="button" class="seg__b city-b" data-city="khiva" aria-pressed="false">Khiva</button></div>
+        <a class="btn btn--primary" href="#index">View properties</a>
       </div>
     </div>
-    <div class="hero__map" id="map" role="application" aria-label="3D-карта Бухары с метками объектов">
-      <noscript><p class="hero__nojs">Карта работает со включённым JavaScript. Список объектов есть ниже на странице.</p></noscript>
+    <div class="hero__map" id="map" role="application" aria-label="3D map with properties and landmarks">
+      <noscript><p class="hero__nojs">The map needs JavaScript. The list of properties is further down the page.</p></noscript>
     </div>
+  </div>
+</section>
+
+<section class="sec" id="services" aria-labelledby="h-services">
+  <div class="container">
+    <h2 id="h-services">What we do for investors</h2>
+    <ul class="cards"><li><h3>Old houses and land plots</h3><p>We look for old houses and plots that can become a hotel. For each option you get the location, area and price, and usually several options to compare.</p></li><li><h3>Close to the monuments</h3><p>We search the historic quarters and the main tourist routes. Travellers choose hotels from which they can walk to the sights.</p></li><li><h3>Negotiation and the deal</h3><p>We talk to the owners ourselves and aim for a fair market price. Lawyers handle the deal, a notary registers the documents, and we take care of the cadastre.</p></li><li><h3>Turnkey hotel</h3><p>Permits, design and approvals, builders and craftsmen, materials. We finish when the hotel is ready for its first guests.</p></li><li><h3>Quality and deadlines</h3><p>We are on site with the contractors. Every stage is accepted on quality and checked against the budget and the schedule.</p></li><li><h3>Transparent spending</h3><p>We compare suppliers and buy materials where the price is right. You see where the money went and receive reports on the work and purchases.</p></li></ul>
+  </div>
+</section>
+
+<section class="sec sec--grey" aria-labelledby="h-steps">
+  <div class="container">
+    <h2 id="h-steps">From finding a house to the first guests</h2>
+    <ol class="steps"><li><h3>Selection</h3><p>We discuss your budget and hotel format and pick a city. Then we send you suitable properties.</p></li><li><h3>Purchase</h3><p>We negotiate, check the documents and register the deal with a notary and the cadastre.</p></li><li><h3>Design and permits</h3><p>We commission the design and get the approvals.</p></li><li><h3>Construction</h3><p>We hire contractors, buy materials and keep the work and the budget under control.</p></li><li><h3>Opening</h3><p>We hand over the finished hotel and help prepare it for operation.</p></li></ol>
+  </div>
+</section>
+
+<section class="sec" aria-labelledby="h-cities">
+  <div class="container">
+    <h2 id="h-cities">Three cities we work in</h2>
+    <ul class="cities"><li class="city"><button type="button" class="city__go" data-city="bukhara"><span class="city__photo" data-slot="photo"><img src="img/kalyan.jpg" alt="" loading="lazy"></span><span class="city__name">Bukhara</span></button><p>The historic centre of Bukhara is a UNESCO World Heritage site. Many small hotels in the old town operate in former family houses around Lyabi-Hauz and Poi-Kalyan.</p></li><li class="city"><button type="button" class="city__go" data-city="samarkand"><span class="city__photo" data-slot="photo"><img src="img/registan.jpg" alt="" loading="lazy"></span><span class="city__name">Samarkand</span></button><p>The Registan, Gur-Emir and Shah-i-Zinda are within walking distance of each other. The high-speed train from Tashkent stops in the city.</p></li><li class="city"><button type="button" class="city__go" data-city="khiva"><span class="city__photo" data-slot="photo"><img src="img/itchan-kala.jpg" alt="" loading="lazy"></span><span class="city__name">Khiva</span></button><p>Itchan Kala, the walled inner city, has been on the UNESCO list since 1990. Residential quarters with old houses lie inside and along the walls.</p></li></ul>
   </div>
 </section>
 
 <section class="index" id="index" aria-labelledby="h-index">
   <div class="container">
     <div class="index__head">
-      <h2 id="h-index">Всё, что отмечено на карте</h2>
-      <div class="seg" role="group" aria-label="Что показывать">
-        <button type="button" class="seg__b" data-filter="all" aria-pressed="true">Всё</button>
-        <button type="button" class="seg__b" data-filter="object" aria-pressed="false">Объекты</button>
-        <button type="button" class="seg__b" data-filter="landmark" aria-pressed="false">Ориентиры</button>
+      <h2 id="h-index">Properties and landmarks</h2>
+      <div class="page__tools">
+        <form class="field-search" role="search" id="search"><label class="visually-hidden" for="q">Find a property or landmark</label><input id="q" type="search" placeholder="Find a property or landmark" autocomplete="off"></form>
+        <div class="seg" role="group" aria-label="City"><button type="button" class="seg__b city-b" data-city="bukhara" aria-pressed="true">Bukhara</button><button type="button" class="seg__b city-b" data-city="samarkand" aria-pressed="false">Samarkand</button><button type="button" class="seg__b city-b" data-city="khiva" aria-pressed="false">Khiva</button></div>
+        <div class="seg" role="group" aria-label="Properties and landmarks"><button type="button" class="seg__b" data-filter="all" aria-pressed="true">All</button><button type="button" class="seg__b" data-filter="object" aria-pressed="false">Properties</button><button type="button" class="seg__b" data-filter="landmark" aria-pressed="false">Landmarks</button></div>
       </div>
     </div>
-
-    <!-- Источник данных для меток: одна строка = одна метка. Координаты — data-lng / data-lat. -->
+    <!-- Метки карты строятся из этих строк. Правьте данные в tools/content.py, не здесь. -->
     <ul class="rows" id="rows">
-      <li class="row" data-slug="obekt-1" data-pin data-kind="object" data-lng="64.4222" data-lat="39.7692">
-        <span class="row__kind">Объект</span>
-        <h3><a class="row__go" href="objects/obekt-1.html">Демо-объект 1</a></h3>
-        <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="bukhara-1" data-pin data-kind="object" data-city="bukhara" data-lng="64.4238" data-lat="39.7712">
+        <span class="row__kind">Property · Bukhara</span>
+        <h3><a class="row__go" href="objects/bukhara-1.html">Demo: old house, Bukhara</a></h3>
+        <dl><div><dt>Type</dt><dd>Old house</dd></div><div><dt>Area</dt><dd>on request</dd></div><div><dt>Price</dt><dd>on request</dd></div><div><dt>Nearest landmark</dt><dd>Lyabi-Hauz, 290 m</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-      <li class="row" data-slug="obekt-2" data-pin data-kind="object" data-lng="64.4302" data-lat="39.7724">
-        <span class="row__kind">Объект</span>
-        <h3><a class="row__go" href="objects/obekt-2.html">Демо-объект 2</a></h3>
-        <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="bukhara-2" data-pin data-kind="object" data-city="bukhara" data-lng="64.4128" data-lat="39.7732">
+        <span class="row__kind">Property · Bukhara</span>
+        <h3><a class="row__go" href="objects/bukhara-2.html">Demo: land plot, Bukhara</a></h3>
+        <dl><div><dt>Type</dt><dd>Land plot</dd></div><div><dt>Area</dt><dd>on request</dd></div><div><dt>Price</dt><dd>on request</dd></div><div><dt>Nearest landmark</dt><dd>Kalyan Minaret, 340 m</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-      <li class="row" data-slug="obekt-3" data-pin data-kind="object" data-lng="64.4262" data-lat="39.7660">
-        <span class="row__kind">Объект</span>
-        <h3><a class="row__go" href="objects/obekt-3.html">Демо-объект 3</a></h3>
-        <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="samarkand-1" data-pin data-kind="object" data-city="samarkand" data-lng="66.9728" data-lat="39.6522">
+        <span class="row__kind">Property · Samarkand</span>
+        <h3><a class="row__go" href="objects/samarkand-1.html">Demo: old house, Samarkand</a></h3>
+        <dl><div><dt>Type</dt><dd>Old house</dd></div><div><dt>Area</dt><dd>on request</dd></div><div><dt>Price</dt><dd>on request</dd></div><div><dt>Nearest landmark</dt><dd>Registan, 390 m</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-      <li class="row" data-slug="obekt-4" data-pin data-kind="object" data-lng="64.4212" data-lat="39.7832">
-        <span class="row__kind">Объект</span>
-        <h3><a class="row__go" href="objects/obekt-4.html">Демо-объект 4</a></h3>
-        <dl><div><dt>Адрес</dt><dd>уточняется</dd></div><div><dt>Срок сдачи</dt><dd>уточняется</dd></div><div><dt>Цена за м²</dt><dd>по запросу</dd></div></dl>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="samarkand-2" data-pin data-kind="object" data-city="samarkand" data-lng="66.9832" data-lat="39.659">
+        <span class="row__kind">Property · Samarkand</span>
+        <h3><a class="row__go" href="objects/samarkand-2.html">Demo: land plot, Samarkand</a></h3>
+        <dl><div><dt>Type</dt><dd>Land plot</dd></div><div><dt>Area</dt><dd>on request</dd></div><div><dt>Price</dt><dd>on request</dd></div><div><dt>Nearest landmark</dt><dd>Bibi-Khanym Mosque, 330 m</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-
-      <li class="row" data-slug="ark" data-pin data-kind="landmark" data-lng="64.4108" data-lat="39.7778" data-photo="img/ark.jpg" data-gallery="img/ark-2.jpg,img/ark-3.jpg,img/ark-4.jpg">
-        <span class="row__kind">Ориентир</span>
-        <h3><a class="row__go" href="objects/ark.html">Крепость Арк</a></h3>
-        <dl><div><dt>Что это</dt><dd>цитадель, резиденция бухарских эмиров</dd></div></dl>
-        <p class="row__desc" hidden>Крепость на искусственном холме в центре города. До 1920 года в Арке жили бухарские эмиры, сейчас внутри музей. Главные ворота выходят на площадь Регистан.</p>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="khiva-1" data-pin data-kind="object" data-city="khiva" data-lng="60.3556" data-lat="41.3768">
+        <span class="row__kind">Property · Khiva</span>
+        <h3><a class="row__go" href="objects/khiva-1.html">Demo: old house, Khiva</a></h3>
+        <dl><div><dt>Type</dt><dd>Old house</dd></div><div><dt>Area</dt><dd>on request</dd></div><div><dt>Price</dt><dd>on request</dd></div><div><dt>Nearest landmark</dt><dd>Kalta Minor, 260 m</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-      <li class="row" data-slug="kalyan" data-pin data-kind="landmark" data-lng="64.4150" data-lat="39.7759" data-photo="img/kalyan.jpg" data-gallery="img/kalyan-2.jpg,img/kalyan-3.jpg">
-        <span class="row__kind">Ориентир</span>
-        <h3><a class="row__go" href="objects/kalyan.html">Минарет Калян</a></h3>
-        <dl><div><dt>Построен</dt><dd class="num">1127 год</dd></div><div><dt>Что это</dt><dd>главный минарет города</dd></div></dl>
-        <p class="row__desc" hidden>Минарет построили в 1127 году при караханидском правителе Арслан-хане. Высота около 46 метров, его видно почти из любой точки старого города. Вместе с мечетью Калян и медресе Мири-Араб он образует ансамбль Пои-Калян.</p>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="khiva-2" data-pin data-kind="object" data-city="khiva" data-lng="60.3626" data-lat="41.3797">
+        <span class="row__kind">Property · Khiva</span>
+        <h3><a class="row__go" href="objects/khiva-2.html">Demo: land plot, Khiva</a></h3>
+        <dl><div><dt>Type</dt><dd>Land plot</dd></div><div><dt>Area</dt><dd>on request</dd></div><div><dt>Price</dt><dd>on request</dd></div><div><dt>Nearest landmark</dt><dd>Itchan Kala, 290 m</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-      <li class="row" data-slug="miri-arab" data-pin data-kind="landmark" data-lng="64.4159" data-lat="39.7757" data-photo="img/miri-arab.jpg" data-gallery="img/miri-arab-2.jpg,img/miri-arab-3.jpg,img/miri-arab-4.jpg">
-        <span class="row__kind">Ориентир</span>
-        <h3><a class="row__go" href="objects/miri-arab.html">Медресе Мири-Араб</a></h3>
-        <dl><div><dt>Построено</dt><dd class="num">1530-е годы</dd></div><div><dt>Что это</dt><dd>действующее медресе</dd></div></dl>
-        <p class="row__desc" hidden>Медресе стоит напротив мечети Калян и закрывает площадь Пои-Калян с востока. Построено в 1530-х годах при Убайдулла-хане. Здесь до сих пор учатся, поэтому во двор посетителей обычно не пускают.</p>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="ark" data-pin data-kind="landmark" data-city="bukhara" data-lng="64.4111" data-lat="39.7779" data-photo="img/ark.jpg">
+        <span class="row__kind">Landmark · Bukhara</span>
+        <h3><a class="row__go" href="objects/ark.html">Ark Fortress</a></h3>
+        <dl><div><dt>What it is</dt><dd>citadel, residence of the emirs of Bukhara</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-      <li class="row" data-slug="ulugbek" data-pin data-kind="landmark" data-lng="64.4165" data-lat="39.7745" data-photo="img/ulugbek.jpg" data-gallery="img/ulugbek-4.jpg">
-        <span class="row__kind">Ориентир</span>
-        <h3><a class="row__go" href="objects/ulugbek.html">Медресе Улугбека</a></h3>
-        <dl><div><dt>Построено</dt><dd class="num">1417 год</dd></div><div><dt>Что это</dt><dd>медресе эпохи Тимуридов</dd></div></dl>
-        <p class="row__desc" hidden>Самое старое из сохранившихся медресе Бухары: его построили в 1417 году по приказу Улугбека. Напротив, через улицу, стоит медресе Абдулазиз-хана, оно моложе на два с лишним века.</p>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="kalyan" data-pin data-kind="landmark" data-city="bukhara" data-lng="64.415" data-lat="39.7757" data-photo="img/kalyan.jpg">
+        <span class="row__kind">Landmark · Bukhara</span>
+        <h3><a class="row__go" href="objects/kalyan.html">Kalyan Minaret</a></h3>
+        <dl><div><dt>Built</dt><dd>1127</dd></div><div><dt>What it is</dt><dd>the city&#x27;s main minaret</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-      <li class="row" data-slug="lyabi-hauz" data-pin data-kind="landmark" data-lng="64.4203" data-lat="39.7731" data-photo="img/lyabi-hauz.jpg">
-        <span class="row__kind">Ориентир</span>
-        <h3><a class="row__go" href="objects/lyabi-hauz.html">Ляби-Хауз</a></h3>
-        <dl><div><dt>Построен</dt><dd class="num">1620 год</dd></div><div><dt>Что это</dt><dd>площадь у водоёма</dd></div></dl>
-        <p class="row__desc" hidden>Площадь вокруг водоёма, который выкопали около 1620 года. По берегам стоят медресе Кукельдаш, ханака и медресе Надира Диван-беги. Вечером здесь людно: чайханы, старые тутовые деревья, вода.</p>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="miri-arab" data-pin data-kind="landmark" data-city="bukhara" data-lng="64.4155" data-lat="39.776" data-photo="img/miri-arab.jpg">
+        <span class="row__kind">Landmark · Bukhara</span>
+        <h3><a class="row__go" href="objects/miri-arab.html">Mir-i-Arab Madrasa</a></h3>
+        <dl><div><dt>Built</dt><dd>1530s</dd></div><div><dt>What it is</dt><dd>a working madrasa</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-      <li class="row" data-slug="chor-minor" data-pin data-kind="landmark" data-lng="64.4273" data-lat="39.7747" data-photo="img/chor-minor.jpg" data-gallery="img/chor-minor-2.jpg,img/chor-minor-3.jpg">
-        <span class="row__kind">Ориентир</span>
-        <h3><a class="row__go" href="objects/chor-minor.html">Чор-Минор</a></h3>
-        <dl><div><dt>Построен</dt><dd class="num">1807 год</dd></div><div><dt>Что это</dt><dd>медресе с четырьмя башнями</dd></div></dl>
-        <p class="row__desc" hidden>Четыре башни с голубыми куполами остались от медресе, которое в 1807 году построил купец Халиф Ниязкул. Само медресе не сохранилось, уцелело только это здание у входа. Стоит в жилом квартале к востоку от Ляби-Хауза.</p>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="ulugbek" data-pin data-kind="landmark" data-city="bukhara" data-lng="64.4177" data-lat="39.7768" data-photo="img/ulugbek.jpg">
+        <span class="row__kind">Landmark · Bukhara</span>
+        <h3><a class="row__go" href="objects/ulugbek.html">Ulugbek Madrasa</a></h3>
+        <dl><div><dt>Built</dt><dd>1417</dd></div><div><dt>What it is</dt><dd>a Timurid-era madrasa</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-      <li class="row" data-slug="samanid" data-pin data-kind="landmark" data-lng="64.4004" data-lat="39.7770" data-photo="img/samanid.jpg" data-gallery="img/samanid-2.jpg,img/samanid-3.jpg,img/samanid-4.jpg">
-        <span class="row__kind">Ориентир</span>
-        <h3><a class="row__go" href="objects/samanid.html">Мавзолей Саманидов</a></h3>
-        <dl><div><dt>Построен</dt><dd>рубеж IX и X веков</dd></div><div><dt>Что это</dt><dd>усыпальница династии Саманидов</dd></div></dl>
-        <p class="row__desc" hidden>Усыпальница династии Саманидов, построена на рубеже IX и X веков. Стены сложены из жжёного кирпича так, что кладка сама работает как узор. Мавзолей стоит в парке на западе старого города.</p>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="lyabi-hauz" data-pin data-kind="landmark" data-city="bukhara" data-lng="64.4208" data-lat="39.7724" data-photo="img/lyabi-hauz.jpg">
+        <span class="row__kind">Landmark · Bukhara</span>
+        <h3><a class="row__go" href="objects/lyabi-hauz.html">Lyabi-Hauz</a></h3>
+        <dl><div><dt>Built</dt><dd>around 1620</dd></div><div><dt>What it is</dt><dd>a square around a pool</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
-      <li class="row" data-slug="bolo-hauz" data-pin data-kind="landmark" data-lng="64.4087" data-lat="39.7776" data-photo="img/bolo-hauz.jpg" data-gallery="img/bolo-hauz-2.jpg,img/bolo-hauz-3.jpg,img/bolo-hauz-4.jpg">
-        <span class="row__kind">Ориентир</span>
-        <h3><a class="row__go" href="objects/bolo-hauz.html">Мечеть Боло-Хауз</a></h3>
-        <dl><div><dt>Построена</dt><dd class="num">1712 год</dd></div><div><dt>Что это</dt><dd>мечеть с расписным айваном</dd></div></dl>
-        <p class="row__desc" hidden>Мечеть 1712 года напротив крепости Арк, у небольшого водоёма. Расписной айван на высоких деревянных колоннах пристроили позже, в начале XX века.</p>
-        <button type="button" class="row__map">На карте</button>
+      <li class="row" data-slug="chor-minor" data-pin data-kind="landmark" data-city="bukhara" data-lng="64.4274" data-lat="39.7748" data-photo="img/chor-minor.jpg">
+        <span class="row__kind">Landmark · Bukhara</span>
+        <h3><a class="row__go" href="objects/chor-minor.html">Chor-Minor</a></h3>
+        <dl><div><dt>Built</dt><dd>1807</dd></div><div><dt>What it is</dt><dd>a gatehouse with four towers</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="samanid" data-pin data-kind="landmark" data-city="bukhara" data-lng="64.4006" data-lat="39.777" data-photo="img/samanid.jpg">
+        <span class="row__kind">Landmark · Bukhara</span>
+        <h3><a class="row__go" href="objects/samanid.html">Samanid Mausoleum</a></h3>
+        <dl><div><dt>Built</dt><dd>turn of the 9th–10th centuries</dd></div><div><dt>What it is</dt><dd>tomb of the Samanid dynasty</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="bolo-hauz" data-pin data-kind="landmark" data-city="bukhara" data-lng="64.4079" data-lat="39.7777" data-photo="img/bolo-hauz.jpg">
+        <span class="row__kind">Landmark · Bukhara</span>
+        <h3><a class="row__go" href="objects/bolo-hauz.html">Bolo-Hauz Mosque</a></h3>
+        <dl><div><dt>Built</dt><dd>1712</dd></div><div><dt>What it is</dt><dd>a mosque with a painted iwan</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="registan" data-pin data-kind="landmark" data-city="samarkand" data-lng="66.9758" data-lat="39.6548" data-photo="img/registan.jpg">
+        <span class="row__kind">Landmark · Samarkand</span>
+        <h3><a class="row__go" href="objects/registan.html">Registan</a></h3>
+        <dl><div><dt>Built</dt><dd>15th–17th centuries</dd></div><div><dt>What it is</dt><dd>square framed by three madrasas</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="gur-emir" data-pin data-kind="landmark" data-city="samarkand" data-lng="66.9691" data-lat="39.6485" data-photo="img/gur-emir.jpg">
+        <span class="row__kind">Landmark · Samarkand</span>
+        <h3><a class="row__go" href="objects/gur-emir.html">Gur-Emir</a></h3>
+        <dl><div><dt>Built</dt><dd>early 15th century</dd></div><div><dt>What it is</dt><dd>mausoleum of Timur</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="bibi-khanym" data-pin data-kind="landmark" data-city="samarkand" data-lng="66.9801" data-lat="39.6607" data-photo="img/bibi-khanym-2.jpg">
+        <span class="row__kind">Landmark · Samarkand</span>
+        <h3><a class="row__go" href="objects/bibi-khanym.html">Bibi-Khanym Mosque</a></h3>
+        <dl><div><dt>Built</dt><dd>1399–1404</dd></div><div><dt>What it is</dt><dd>Timur&#x27;s cathedral mosque</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="shah-i-zinda" data-pin data-kind="landmark" data-city="samarkand" data-lng="66.9878" data-lat="39.6625" data-photo="img/shah-i-zinda-3.jpg">
+        <span class="row__kind">Landmark · Samarkand</span>
+        <h3><a class="row__go" href="objects/shah-i-zinda.html">Shah-i-Zinda</a></h3>
+        <dl><div><dt>Built</dt><dd>11th–19th centuries</dd></div><div><dt>What it is</dt><dd>necropolis street</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="itchan-kala" data-pin data-kind="landmark" data-city="khiva" data-lng="60.3598" data-lat="41.3781" data-photo="img/itchan-kala.jpg">
+        <span class="row__kind">Landmark · Khiva</span>
+        <h3><a class="row__go" href="objects/itchan-kala.html">Itchan Kala</a></h3>
+        <dl><div><dt>UNESCO</dt><dd>since 1990</dd></div><div><dt>What it is</dt><dd>walled inner city</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="kalta-minor" data-pin data-kind="landmark" data-city="khiva" data-lng="60.358" data-lat="41.3783" data-photo="img/kalta-minor-2.jpg">
+        <span class="row__kind">Landmark · Khiva</span>
+        <h3><a class="row__go" href="objects/kalta-minor.html">Kalta Minor</a></h3>
+        <dl><div><dt>Built</dt><dd>1850s</dd></div><div><dt>What it is</dt><dd>unfinished minaret</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="islam-khoja" data-pin data-kind="landmark" data-city="khiva" data-lng="60.3601" data-lat="41.3766" data-photo="img/islam-khoja.jpg">
+        <span class="row__kind">Landmark · Khiva</span>
+        <h3><a class="row__go" href="objects/islam-khoja.html">Islam Khoja Minaret</a></h3>
+        <dl><div><dt>Built</dt><dd>1910</dd></div><div><dt>What it is</dt><dd>the tallest minaret in Khiva</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="kunya-ark" data-pin data-kind="landmark" data-city="khiva" data-lng="60.3582" data-lat="41.3789" data-photo="img/kunya-ark.jpg">
+        <span class="row__kind">Landmark · Khiva</span>
+        <h3><a class="row__go" href="objects/kunya-ark.html">Kunya-Ark</a></h3>
+        <dl><div><dt>Built</dt><dd>17th century</dd></div><div><dt>What it is</dt><dd>citadel of the khans of Khiva</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
+      </li>
+      <li class="row" data-slug="juma-khiva" data-pin data-kind="landmark" data-city="khiva" data-lng="60.3599" data-lat="41.3775" data-photo="img/juma-khiva.jpg">
+        <span class="row__kind">Landmark · Khiva</span>
+        <h3><a class="row__go" href="objects/juma-khiva.html">Juma Mosque</a></h3>
+        <dl><div><dt>Rebuilt</dt><dd>1788</dd></div><div><dt>What it is</dt><dd>mosque of carved wooden columns</dd></div></dl>
+        <button type="button" class="row__map">On the map</button>
       </li>
     </ul>
-    <p class="rows__empty" id="rows-empty" hidden>Ничего не нашлось. Измените запрос.</p>
+    <p class="rows__empty" id="rows-empty" hidden>Nothing found. Try another query.</p>
   </div>
 </section>
-
-<section class="band" id="contact" aria-labelledby="h-contact">
-  <div class="container band__in">
-    <h2 id="h-contact">Покажем любой дом на месте</h2>
-    <dl class="band__facts">
-      <div><dt>Телефон отдела продаж</dt><dd></dd></div>
-      <div><dt>Офис в Бухаре</dt><dd></dd></div>
-    </dl>
-    <a class="btn btn--light" href="contacts.html#show">Записаться на показ</a>
-  </div>
-</section>
-
 </main>
-
+<section class="band">
+  <div class="container band__in">
+    <h2>Tell us what you are looking for</h2>
+    <p class="band__line">Silk Road — Your Trusted Partner in Uzbekistan.</p>
+    <a class="btn btn--light" href="contacts.html#form">Discuss a project</a>
+  </div>
+</section>
 <footer class="foot">
   <div class="container foot__in">
-    <p class="foot__mark">Palm</p>
-    <ul class="foot__links">
-      <li><a href="#top">Карта</a></li>
-      <li><a href="catalog.html">Объекты</a></li>
-      <li><a href="about.html">О компании</a></li>
-      <li><a href="contacts.html">Контакты</a></li>
-      <li><a href="credits.html">Авторы фото</a></li>
-    </ul>
+    <p class="foot__mark">Silk Road <span>Your Trusted Partner in Uzbekistan</span></p>
+    <ul class="foot__links"><li><a href="./">Map</a></li><li><a href="catalog.html">Properties</a></li><li><a href="#services">Services</a></li><li><a href="about.html">About</a></li><li><a href="contacts.html">Contact</a></li><li><a href="credits.html">Photo credits</a></li></ul>
   </div>
 </footer>
-
+<script>window.SR = { lang: "en", more: "Details", noPhoto: "Property photo coming soon", asset: "" };</script>
+<script>window.SR_CITIES = {"bukhara": {"flat": [64.4168, 39.7742], "tilt": [64.4185, 39.7745], "zoom": 14.5, "bounds": [[64.3, 39.7], [64.53, 39.85]]}, "samarkand": {"flat": [66.978, 39.6565], "tilt": [66.979, 39.657], "zoom": 14.3, "bounds": [[66.85, 39.58], [67.1, 39.73]]}, "khiva": {"flat": [60.359, 41.378], "tilt": [60.3592, 41.3782], "zoom": 15.4, "bounds": [[60.3, 41.34], [60.42, 41.42]]}};</script>
 <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
 <script src="app.js"></script>
 </body>
