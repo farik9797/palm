@@ -86,8 +86,9 @@ def shell(t, path, title, body, scripts="", head="", desc="", robots=""):
 {body}
 <footer class="foot">
   <div class="container foot__in">
-    <p class="foot__mark">Silk Road <span>{t['brand_line']}</span></p>
-    <ul class="foot__links">{links}<li><a href="{home}credits.html">{t['credits']}</a></li></ul>
+    <div class="foot__brand"><p class="foot__mark">Silk Road</p><p class="foot__line">{t['brand_line']}</p></div>
+    <ul class="foot__links">{links}</ul>
+    <ul class="foot__meta"><li><a href="{other_url or './'}" hreflang="{t['other']}" lang="{t['other']}">{t['other_label']}</a></li><li><a href="{home}credits.html">{t['credits']}</a></li></ul>
   </div>
 </footer>
 <script>window.SR = {{ lang: "{t['lang']}", more: "{t['more']}", noPhoto: "{t['no_photo']}", asset: "{asset}" }};</script>
@@ -96,8 +97,8 @@ def shell(t, path, title, body, scripts="", head="", desc="", robots=""):
 """
 
 
-def band(t, home):
-    return f"""<section class="band">
+def band(t, home, asset):
+    return f"""<section class="band" style="--band-photo: url('{asset}img/registan-3.jpg')">
   <div class="container band__in">
     <h2>{e(t['band_h'])}</h2>
     <p class="band__line">Silk Road — {t['brand_line']}.</p>
@@ -152,7 +153,7 @@ def build(t):
     cities = "".join(
         f'<li class="city"><button type="button" class="city__go" data-city="{k}">'
         f'<span class="city__photo" data-slot="photo"><img src="{a0}{c["photo"]}" alt="" loading="lazy"></span>'
-        f'<span class="city__name">{c[lang]}</span></button><p>{e(t["city_text"][k])}</p></li>'
+        f'<span class="city__cap"><span class="city__name">{c[lang]}</span><span class="city__map">{t["on_map"]}</span></span></button><p>{e(t["city_text"][k])}</p></li>'
         for k, c in CITIES.items())
     cities_js = json.dumps({k: {x: c[x] for x in ("flat", "tilt", "zoom", "bounds")} for k, c in CITIES.items()})
     index = f"""<main id="top">
@@ -174,13 +175,17 @@ def build(t):
 </section>
 
 <section class="sec" id="services" aria-labelledby="h-services">
-  <div class="container">
-    <h2 id="h-services">{e(t['services_h'])}</h2>
-    <ul class="cards">{services}</ul>
+  <div class="container services">
+    <div class="services__head">
+      <h2 id="h-services">{e(t['services_h'])}</h2>
+      <p class="services__lead">{e(t['services_lead'])}</p>
+      <a class="btn btn--primary" href="contacts.html#form">{e(t['cta'])}</a>
+    </div>
+    <ul class="services__list">{services}</ul>
   </div>
 </section>
 
-<section class="sec sec--grey" aria-labelledby="h-steps">
+<section class="sec sec--sand" aria-labelledby="h-steps">
   <div class="container">
     <h2 id="h-steps">{e(t['steps_h'])}</h2>
     <ol class="steps">{steps}</ol>
@@ -211,7 +216,7 @@ def build(t):
   </div>
 </section>
 </main>
-""" + band(t, "")
+""" + band(t, "", a0)
     (root / "index.html").write_text(shell(t, "index.html", t["title"], index, desc=t["desc"],
         head=f'<link rel="stylesheet" href="{MAPLIBRE}.css">\n',
         scripts=f'<script>window.SR_CITIES = {cities_js};</script>\n<script src="{MAPLIBRE}.js"></script>\n<script src="{a0}app.js"></script>\n'))
@@ -266,7 +271,7 @@ def build(t):
     <p class="rows__empty" id="tiles-empty" hidden>{t['empty']}</p>
   </div>
 </main>
-""" + band(t, "")
+""" + band(t, "", a0)
     (root / "catalog.html").write_text(shell(t, "catalog.html", t["catalog_title"], catalog, desc=t["catalog_desc"],
                                              scripts=f'<script src="{a0}catalog.js"></script>\n'))
 
@@ -282,14 +287,17 @@ def build(t):
       </div>
       <div class="about__photo">{t['about_photo']}</div>
     </div>
-    {dl([(s, t['tbc']) for s in t['stats']], ' class="stats"')}
+    <section class="company" aria-labelledby="h-company">
+      <h2 id="h-company">{t['company_h']}</h2>
+      {dl([(s, t['tbc']) for s in t['stats']], ' class="facts"')}
+    </section>
     <section class="how" aria-labelledby="h-how">
       <h2 id="h-how">{e(t['steps_h'])}</h2>
       <ol class="steps">{steps}</ol>
     </section>
   </div>
 </main>
-""" + band(t, "")
+""" + band(t, "", a0)
     (root / "about.html").write_text(shell(t, "about.html", t["about_title"], about, desc=t["about_lead"]))
 
     # ---------- контакты ----------

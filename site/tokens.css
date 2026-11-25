@@ -15,12 +15,15 @@
   --color-dark: #1d1d1f; --color-dark-ink: #f5f5f7; --color-dark-muted: #a1a1a6; --color-dark-rule: #424245;
   --color-scrim: rgb(255 255 255 / 0.94); --color-scrim-mid: rgb(255 255 255 / 0.8); --color-scrim-0: rgb(255 255 255 / 0);
   --color-glass: rgb(255 255 255 / 0.78); --color-fill: rgb(118 118 128 / 0.12); --color-fill-hover: rgb(118 118 128 / 0.2);
+  /* тёплые поверхности: глина стен Хивы и лазурит изразцов */
+  --color-sand: #f6f1e9; --color-sand-2: #ede5d8; --color-sand-rule: #e0d5c4; --color-sand-ink: #6b5b47;
+  --color-lapis: #13243b; --color-lapis-2: #1b3150; --color-lapis-ink: #f6f1e9; --color-lapis-muted: #b4bfcf; --color-lapis-rule: #2d4466;
   /* карта */
   --color-land: #f1f1f4; --color-sheet: #ffffff; --color-road-case: #dcdce2; --color-building: #dedee6;
   --color-contour: #a1a1a6; --color-water: #a9d3f2; --color-green-soft: #d6ecd0;
   --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", Arial, sans-serif;
   --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Helvetica Neue", Arial, sans-serif;
-  --radius-card: 18px; --radius-entry: 18px; --radius-stage: 28px; --radius-pill: 980px; --rule-hair: 1px;
+  --radius-card: 16px; --radius-entry: 18px; --radius-stage: 28px; --radius-pill: 980px; --rule-hair: 1px;
   --shadow-card: 0 2px 8px rgb(0 0 0 / 0.12);
   --shadow-lift: 0 12px 40px rgb(0 0 0 / 0.18), 0 2px 6px rgb(0 0 0 / 0.08);
   --tracking-display: -0.022em; --display-weight: 600;

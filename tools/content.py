@@ -134,6 +134,8 @@ UI = {
         "see": "View properties", "map_label": "3D map with properties and landmarks", "nojs": "The map needs JavaScript. The list of properties is further down the page.",
         "cities_label": "City",
         "services_h": "What we do for investors",
+        "services_lead": "From finding a house to a turnkey hotel, one team in Uzbekistan handles every step and reports to you on each of them.",
+        "company_h": "Company details",
         "services": [
             ("Old houses and land plots", "We look for old houses and plots that can become a hotel. For each option you get the location, area and price, and usually several options to compare."),
             ("Close to the monuments", "We search the historic quarters and the main tourist routes. Travellers choose hotels from which they can walk to the sights."),
@@ -197,6 +199,8 @@ UI = {
         "see": "Смотреть объекты", "map_label": "3D-карта с объектами и ориентирами", "nojs": "Карта работает со включённым JavaScript. Список объектов есть ниже на странице.",
         "cities_label": "Город",
         "services_h": "Что мы делаем для инвестора",
+        "services_lead": "От поиска дома до гостиницы под ключ: все этапы ведёт одна команда в Узбекистане и по каждому отчитывается перед вами.",
+        "company_h": "Сведения о компании",
         "services": [
             ("Старые дома и участки", "Подбираем старые дома и земельные участки, где можно открыть гостиницу. По каждому варианту даём адрес, площадь и цену, обычно предлагаем несколько на выбор."),
             ("Рядом с памятниками", "Ищем в исторических кварталах и вдоль туристических маршрутов. Туристы выбирают гостиницы, от которых до памятников можно дойти пешком."),
